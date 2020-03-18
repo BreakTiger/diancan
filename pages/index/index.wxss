@@ -1,0 +1,35 @@
+.container>view {
+  width: 94%;
+  margin-top: 25rpx;
+  word-break: break-all;
+  overflow: auto;
+}
+
+.banner {
+  height: 200rpx;
+}
+
+.nav-line {
+  height: 150rpx;
+}
+
+.nav-icon {
+  width: 90rpx;
+  height: 90rpx;
+  margin-bottom: 10rpx;
+}
+
+.recommend {
+  height: 230rpx;
+}
+
+.list-item {
+  width: 155rpx;
+  margin-left: 19rpx;
+}
+
+.list-item>image {
+  height: 155rpx;
+  margin-bottom: 10rpx;
+  background: black;
+}
