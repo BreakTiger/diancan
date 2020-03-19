@@ -57,22 +57,9 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/index/index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "pages/mine/mine",
 					"pathName": "pages/mine/mine",
 					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/menu/search/search",
-					"pathName": "pages/menu/search/search",
 					"scene": null
 				}
 			]

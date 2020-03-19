@@ -28,7 +28,7 @@
         "iconPath": "/tabber/icon-2.png",
         "selectedIconPath": "/tabber/icon-5.png",
         "pagePath": "pages/menu/menu",
-        "text": "菜单"
+        "text": "点单"
       },
       {
         "iconPath": "/tabber/icon-3.png",

@@ -1,0 +1,18 @@
+<view class="container flex col fl-align">
+  <!-- 用户信息 -->
+  <view class="user-line flex fl-align fl-jsa">
+    <image class="header b_rh"></image>
+    <view class="user-info flex col fl-jse">
+      <view class="flex fl-align fl-jsb">
+        <text class="f28 c-00 f-wb">虎徐</text>
+        <view class="n-level b-f5 b_r20">普通用户</view>
+      </view>
+      <view class="flex fl-align">
+        <image src="/icon/phone.png" class="p_icon"></image>
+        <text class="f28 c-66">绑定手机</text>
+      </view>
+    </view>
+    <image class="code" src="/icon/code.png"></image>
+  </view>
+
+</view>

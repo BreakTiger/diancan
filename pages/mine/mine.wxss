@@ -1,0 +1,30 @@
+.user-line {
+  width: 100%;
+  padding: 20rpx 0;
+  margin-bottom: 40rpx;
+}
+
+.header {
+  width: 100rpx;
+  height: 100rpx;
+  background: black;
+}
+
+.user-info {
+  width: 70%;
+}
+
+.n-level {
+  padding: 10rpx 20rpx;
+}
+
+.code {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.p_icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}

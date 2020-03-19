@@ -34,6 +34,6 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    api: 'https://canyin.dt5555.cn/index.php'
   }
 })

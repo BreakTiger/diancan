@@ -1,2 +1,28 @@
-<!--pages/menu/search/search.wxml-->
-<text>pages/menu/search/search.wxml</text>
+<view class="container flex col fl-align">
+
+  <view class="search-line flex fl-align fl-jsa b-ff">
+    <input placeholder="请输入搜索内容" class="b-f5 f25"></input>
+    <text class="f28" style="color:#1AAF25;">取消</text>
+  </view>
+  <view style="height:100rpx;"></view>
+  <image src="/icon/empyt.png" class="empyt" wx:if="{{searchList.length==0}}"></image>
+  <view class="search-list-item flex fl-align fl-jsa b-ff" wx:else>
+    <image src="" class="b_r12"></image>
+    <view class="flex col">
+      <view class="climp2 f25 c-00 f-w4">我的我的我的我的我的我的我的我的我的我的我的我的我的我的我的我的</view>
+      <view class="laber f25 t-ac b-f5" style="margin:15rpx 10rpx;">8.5折</view>
+      <view class="w100 flex fl-align">
+        <text class="f28 c-00 f-wb" style="margin:0 10rpx;">￥10.00</text>
+        <text class="f25 c-66 d-l">￥100.00</text>
+      </view>
+      <view class="num flex fl-align fl-jsd">
+        <image src="/icon/add.png" class="b_rh" style="margin-right:20rpx;" wx:if="{{num==0}}"></image>
+        <block style="margin-right:20rpx;" wx:else>
+          <image src="/icon/min.png" class="b_rh"></image>
+          <input class="f25 t-ac" value="{{num}}"></input>
+          <image src="/icon/add.png" class="b_rh"></image>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
