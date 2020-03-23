@@ -4,19 +4,27 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
 		"coverView": true,
+		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.3",
-	"appid": "wx047e5bfe813bd55f",
+	"appid": "wxc2d9e95e917ef255",
 	"projectname": "diancan_modal",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -50,15 +58,15 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/menu/menu",
-					"pathName": "pages/menu/menu",
+					"name": "pages/reserve/reserve",
+					"pathName": "pages/reserve/reserve",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/mine/mine",
-					"pathName": "pages/mine/mine",
+					"name": "pages/order/order",
+					"pathName": "pages/order/order",
 					"query": "",
 					"scene": null
 				}

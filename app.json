@@ -4,7 +4,11 @@
     "pages/mine/mine",
     "pages/login/login",
     "pages/menu/menu",
-    "pages/menu/search/search"
+    "pages/menu/search/search",
+    "pages/mine/payCode/payCode",
+    "pages/order/order",
+    "pages/reserve/reserve",
+    "pages/recommend/recommend"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -13,29 +17,5 @@
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json",
-  "tabBar": {
-    "color": "#000000",
-    "selectedColor": "#FF6235",
-    "list": [
-      {
-        "iconPath": "/tabber/icon-1.png",
-        "selectedIconPath": "/tabber/icon-4.png",
-        "pagePath": "pages/index/index",
-        "text": "首页"
-      },
-      {
-        "iconPath": "/tabber/icon-2.png",
-        "selectedIconPath": "/tabber/icon-5.png",
-        "pagePath": "pages/menu/menu",
-        "text": "点单"
-      },
-      {
-        "iconPath": "/tabber/icon-3.png",
-        "selectedIconPath": "/tabber/icon-6.png",
-        "pagePath": "pages/mine/mine",
-        "text": "我的"
-      }
-    ]
-  }
+  "sitemapLocation": "sitemap.json"
 }

@@ -1,18 +1,64 @@
 <view class="container flex col fl-align">
+
   <!-- 用户信息 -->
   <view class="user-line flex fl-align fl-jsa">
-    <image class="header b_rh"></image>
+    <image class="header b_rh" src="{{users.avatarUrl}}"></image>
     <view class="user-info flex col fl-jse">
       <view class="flex fl-align fl-jsb">
-        <text class="f28 c-00 f-wb">虎徐</text>
-        <view class="n-level b-f5 b_r20">普通用户</view>
+        <text class="f28 c-00 f-wb">{{users.nickName}}</text>
+        <view class="n-level b-f5 b_r20 f25">普通用户</view>
       </view>
-      <view class="flex fl-align">
+      <view class="flex fl-align" wx:if="{{users.phone}}">
         <image src="/icon/phone.png" class="p_icon"></image>
-        <text class="f28 c-66">绑定手机</text>
+        <text class="f25 c-66">{{users.phone}}</text>
+      </view>
+      <view class="flex fl-align" style="position: relative;" wx:else>
+        <image src="/icon/phone.png" class="p_icon"></image>
+        <text class="f25 c-66">绑定手机</text>
+        <button class="p-btn" plain="true" open-type="getPhoneNumber" bindgetphonenumber="setPhone"></button>
       </view>
     </view>
-    <image class="code" src="/icon/code.png"></image>
   </view>
+
+  <!-- 会员卡 -->
+  <view class="card-line flex col fl-align">
+    <view class="card flex fl-align fl-jsb">
+      <text class="f28 c-ff" style="margin-left:20rpx;">开通会员</text>
+      <view class="flex fl-align" style="margin-right:20rpx;">
+        <text class="f28 c-ff">查询详情</text>
+        <image class="go" src="/icon/go-one.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 余额 -->
+  <!-- <view class="line flex col">
+    <view class="f32 c-00 f-wb">余额</view>
+    <view class="flex fl-align fl-jsb">
+      <text class="f40 c-00 f-wb">0.00</text>
+      <view class="c-btn f28 f-wb b_r20">充值</view>
+    </view>
+  </view> -->
+
+  <!-- 我的积分 -->
+  <!-- <view class="line h80 flex fl-align fl-jsb">
+    <text class="f28">我的积分</text>
+    <text class="f28">0积分</text>
+  </view> -->
+
+  <!-- 我的订单 -->
+  <view class="line h80 flex fl-align fl-jsb" bindtap="toOrder">
+    <text class="f28">我的订单</text>
+    <image src="/icon/go.png"></image>
+  </view>
+
+  <!-- 我的预约 -->
+  <view class="line h80 flex fl-align fl-jsb" bindtap="toReserve">
+    <text class="f28">我的预约</text>
+    <image src="/icon/go.png"></image>
+  </view>
+
+  <!-- 关于我们 -->
+
 
 </view>

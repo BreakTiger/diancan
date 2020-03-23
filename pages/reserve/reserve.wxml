@@ -1,0 +1,57 @@
+<view class="container flex col fl-align">
+
+  <view class="content b-ff b_r12 flex col fl-align">
+
+    <!-- 预约日期 -->
+    <view class="flex fl-align fl-jsb">
+      <text>预约日期</text>
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <text class="f28 c-66">请选择预约日期</text>
+        <image src="/icon/go.png" class="toGo"></image>
+      </picker>
+    </view>
+
+    <!-- 预约时间 -->
+    <view class="flex fl-align fl-jsb">
+      <text>预约时间</text>
+      <picker mode="time" value="{{time}}" bindchange="bindTimeChange">
+        <text class="f28 c-66">请选择时间</text>
+        <image src="/icon/go.png" class="toGo"></image>
+      </picker>
+    </view>
+
+
+    <!-- 人数 -->
+    <view class="flex fl-align fl-jsb">
+      <text>人数</text>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <text class="f28 c-66">请选择人数</text>
+        <image src="/icon/go.png" class="toGo"></image>
+      </picker>
+    </view>
+
+    <!-- 姓名 -->
+    <view class="flex fl-align fl-jsb">
+      <text>姓名</text>
+      <input placeholder="请输入姓名"></input>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="flex fl-align fl-jsb">
+      <text>联系方式</text>
+      <input placeholder="请输入联系方式"></input>
+    </view>
+
+    <!-- 备注 -->
+    <view class="flex fl-align fl-jsb">
+      <text>备注</text>
+      <input></input>
+    </view>
+
+    <button class="order-btn">立即预约</button>
+
+  </view>
+
+
+
+</view>

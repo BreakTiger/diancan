@@ -2,20 +2,16 @@
 
   <!-- 轮播图 -->
   <view class="banner b_r12">
-    <swiper class="wh100">
-      <swiper-item>
-        <image class="wh100" src="" style="background: black;"></image>
-      </swiper-item>
-      <swiper-item>
-        <image class="wh100" src="" style="background: red;"></image>
+    <swiper class="wh100" autoplay="true" interval="2000">
+      <swiper-item wx:for="{{lunbo}}" wx:key="index">
+        <image class="wh100" src="{{item.imgUrl}}"></image>
       </swiper-item>
     </swiper>
   </view>
-  <view>11111111111111111111111</view>
 
   <!-- 导航 -->
   <view class="nav-line flex fl-align fl-jsb">
-    <view class="nav-item flex col fl-align" wx:for="{{nav}}" wx:key="nav">
+    <view class="nav-item flex col fl-align" wx:for="{{nav}}" wx:key="nav" bindtap="toNav" data-item="{{item}}">
       <image src="{{item.icon}}" class="nav-icon"></image>
       <text class="f25 f-w4">{{item.text}}</text>
     </view>
@@ -23,14 +19,14 @@
 
   <!-- 推荐 -->
   <view class="flex fl-align fl-jsb">
-    <text class="f20">推荐（5）</text>
+    <text class="f20">推荐（{{r_list.length}}）</text>
     <image src="/icon/go.png" class="go"></image>
   </view>
   <!-- 推荐商品，显示4中 -->
   <view class="recommend flex fl-align flex fl-align">
-    <view class="list-item flex col fl-align" wx:for="{{4}}" wx:key="index">
-      <image src="" class="w100"></image>
-      <view class="f25 climp1 w100">wodewodewode</view>
+    <view class="list-item flex col fl-align" wx:for="{{r_list}}" wx:key="index" bindtap="toRecommend" data-item="{{item}}">
+      <image src="{{item.file_name}}" class="w100"></image>
+      <view class="f25 climp1 w100">{{item.goods_name}}</view>
     </view>
   </view>
   <view class="f20">更多功能正在预备中...</view>

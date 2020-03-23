@@ -64,6 +64,10 @@ page {
   font-size: 32rpx;
 }
 
+.f40{
+  font-size: 40rpx;
+}
+
 /* 文字粗细 */
 
 .f-w4 {

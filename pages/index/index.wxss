@@ -31,5 +31,4 @@
 .list-item>image {
   height: 155rpx;
   margin-bottom: 10rpx;
-  background: black;
 }

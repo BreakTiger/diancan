@@ -3,12 +3,12 @@
   <!-- 左侧导航 -->
   <view class="left-content">
     <scroll-view class="wh100" scroll-y="true">
-      <view class="nav-tab flex fl-align fl-jsa b-f5">
+      <view class="nav-tab flex fl-align fl-jsa b-f5" bindtap="toSearch">
         <image src="/icon/search.png" class="search"></image>
         <text class="f28">搜索</text>
       </view>
-      <view class="nav-tab flex fl-align fl-jse {{choice_nav==index?'lineleft':'b-f5'}}" wx:for="{{navList}}" wx:key="nav" data-index="{{index}}">
-        <text class="f28">{{item.text}}</text>
+      <view class="nav-tab flex fl-align fl-jse {{choice_nav==item.category_id?'lineleft':'b-f5'}}" wx:for="{{navList}}" wx:key="nav" data-index="{{index}}">
+        <text class="f28">{{item.name}}</text>
       </view>
     </scroll-view>
   </view>
