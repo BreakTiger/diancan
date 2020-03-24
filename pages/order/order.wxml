@@ -1,3 +1,24 @@
 <view class="container flex col fl-align">
-
+  <view class="list-item b-ff b_r12 flex col fl-align" wx:for="{{list}}" wx:key="index">
+    <view class="flex fl-align fl-jsb">
+      <view>
+        <image src="/icon/shop.png" class="shop-icon"></image>
+        <text class="f28 c-66">我的</text>
+      </view>
+      <text class="f28 c-66" wx:if="{{item.pay_status==10}}">待支付</text>
+      <text class="f28 c-66" wx:if="{{item.pay_status==20}}">已完成</text>
+    </view>
+    <view class="flex fl-align fl-jsb">
+      <image src="" class="order-img b_r12"></image>
+      <view class="order-info flex col fl-jse">
+        <view class="f28 c-00">下单时间：{{item.pay_time}}</view>
+        <view class="f28 c-00">总价：￥{{item.pay_price}}</view>
+      </view>
+    </view>
+    <view class="flex fl-align fl-jsd">
+      <view class="f28 c-00 btn b_r12" wx:if="{{item.pay_status==10}}" catchtap="toPay">继续支付</view>
+      <view class="f28 c-00 btn b_r12" wx:if="{{item.pay_status==20}}" catchtap="buyAgagin">再来一单</view>
+    </view>
+  </view>
+  <view style="width:100%;height:100rpx;"></view>
 </view>

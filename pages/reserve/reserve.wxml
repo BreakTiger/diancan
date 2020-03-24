@@ -48,7 +48,7 @@
       <input></input>
     </view>
 
-    <button class="order-btn">立即预约</button>
+    <button class="order-btn c-ff">立即预约</button>
 
   </view>
 

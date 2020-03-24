@@ -58,13 +58,6 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/reserve/reserve",
-					"pathName": "pages/reserve/reserve",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "pages/order/order",
 					"pathName": "pages/order/order",
 					"query": "",

@@ -22,6 +22,7 @@ Page({
     }, {
       'content-type': 'application/json'
     }).then(function(res) {
+      console.log(res)
       modals.loaded()
       if (res.data.code == 200) {
         let token = res.data.data
@@ -48,6 +49,7 @@ Page({
     request.sendRequest(url, 'post', param, {
       'content-type': 'application/json'
     }).then(function(res) {
+      console.log(res)
       modals.loaded()
       if (res.data.code == 200) {
         wx.setStorageSync('token', token)

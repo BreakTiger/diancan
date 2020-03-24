@@ -34,7 +34,21 @@ Page({
 
   // 绑定手机
   setPhone: function(e) {
+    console.log(e)
     console.log(e.detail)
+    let that = this
+    let data = {
+      token: wx.getStorageSync('token'),
+      iv: e.detail.iv,
+      encryptedData: e.detail.encryptedData
+    }
+    let url = app.globalData.api + '?s=wxapi/Person/bind_phone'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      console.log(res)
+    })
+
 
   },
 
