@@ -1,0 +1,51 @@
+<view class="container flex col fl-align">
+
+  <!-- 订单状态 -->
+  <view class="flex fl-align" style="padding:40rpx 0;">
+    <text class="f-wb f40 c-00" wx:if="{{detail.pay_status==10}}">订单待支付</text>
+    <text class="f-wb f40 c-00" wx:if="{{detail.pay_status==20}}">订单已完成</text>
+    <image src="/icon/go.png" class="go-icon"></image>
+  </view>
+
+  <!-- 已选商品 -->
+  <view class="flex col fl-align b-ff b_r12" style="margin-bottom:40rpx;">
+    <view class="f28 c-66" style="width:90%;padding:20rpx 0;border-bottom:1rpx solid #f5f5f5;">已选商品：</view>
+    <view class="good flex fl-align fl-jsb" style="margin-top:20rpx;" wx:for="{{goods}}" wx:key="index">
+      <image src="{{item.file_name}}" class="goods b_r12"></image>
+      <view class="flex col fl-jse">
+        <view class="flex fl-align fl-jsb">
+          <text class="f32 f-wb c-00 climp1" style="width:200rpx;">{{item.goods_name}}</text>
+          <view>
+            <text class="f28 c-66 d-l" style="margin-right:20rpx;">￥{{item.line_price}}</text>
+            <text class="f28 c-00">￥{{item.goods_price}}</text>
+          </view>
+        </view>
+        <text class="f28 c-66">{{item.goods_attr}}</text>
+        <text class="f28 c-66">X{{item.total_num}}</text>
+      </view>
+    </view>
+    <view class="flex fl-jsd f28 f-wb" style="width:90%;padding:20rpx 0;border-top:1rpx solid #f5f5f5;margin-top:20rpx;">合计￥{{detail.pay_price}}</view>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class="flex col fl-align b-ff b_r12">
+    <view class="f28 f-wb" style="width:90%;padding:20rpx 0;">订单信息:</view>
+    <view class="line flex fl-align fl-jsb">
+      <text class="f28 c-66">订单号码</text>
+      <text class="f28">{{detail.order_no}}</text>
+    </view>
+    <view class="line flex fl-align fl-jsb">
+      <text class="f28 c-66">下单时间</text>
+      <text class="f28">{{detail.pay_time}}</text>
+    </view>
+    <view class="line flex fl-align fl-jsb">
+      <text class="f28 c-66">支付方式</text>
+      <text class="f28">微信支付</text>
+    </view>
+  </view>
+
+  <view class="f-line b-ff flex fl-align fl-jsd">
+    <view class="f28 c-00 b_r12 btn" wx:if="{{detail.pay_status==10}}" bindtap="toPay">继续支付</view>
+    <view class="f28 c-00 b_r12 btn" wx:if="{{detail.pay_status==20}}" bindtap="buyAgain">再买一单</view>
+  </view>
+</view>

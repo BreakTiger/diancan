@@ -26,8 +26,8 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      console.log(res.data.data)
       if (res.data.code == 200) {
+        let list = res.data.data.data 
         that.setData({
           list: res.data.data.data
         })
@@ -36,4 +36,25 @@ Page({
       }
     })
   },
+
+  // 继续支付
+  toPay: function(e) {
+
+  },
+
+  // 再买一次
+  buyAgagin: function(e) {
+
+  },
+
+  // 详情
+  toDetails: function(e) {
+    let item = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '/pages/order/order-detail/order-detail?item=' + JSON.stringify(item),
+    })
+  },
+
+
+
 })

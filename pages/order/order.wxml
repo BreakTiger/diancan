@@ -1,5 +1,5 @@
 <view class="container flex col fl-align">
-  <view class="list-item b-ff b_r12 flex col fl-align" wx:for="{{list}}" wx:key="index">
+  <view class="list-item b-ff b_r12 flex col fl-align" wx:for="{{list}}" wx:key="index" data-item="{{item}}" bindtap="toDetails">
     <view class="flex fl-align fl-jsb">
       <view>
         <image src="/icon/shop.png" class="shop-icon"></image>
@@ -16,8 +16,8 @@
       </view>
     </view>
     <view class="flex fl-align fl-jsd">
-      <view class="f28 c-00 btn b_r12" wx:if="{{item.pay_status==10}}" catchtap="toPay">继续支付</view>
-      <view class="f28 c-00 btn b_r12" wx:if="{{item.pay_status==20}}" catchtap="buyAgagin">再来一单</view>
+      <view class="f28 c-00 btn b_r12" wx:if="{{item.pay_status==10}}" data-item="{{item}}" catchtap="toPay">继续支付</view>
+      <view class="f28 c-00 btn b_r12" wx:if="{{item.pay_status==20}}" data-item="{{item}}" catchtap="buyAgagin">再来一单</view>
     </view>
   </view>
   <view style="width:100%;height:100rpx;"></view>

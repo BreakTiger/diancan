@@ -38,13 +38,11 @@
           </view>
         </view>
       </block>
-
     </scroll-view>
-
   </view>
 
   <!-- 悬浮 购物车按钮 + 购物商品数量 + 计算栏 -->
-  <view class="shop-car flex fl-align fl-jsa b-ff">
+  <!-- <view class="shop-car flex fl-align fl-jsa b-ff">
     <image src="/icon/pakege.png"></image>
     <text class="f28">购物车</text>
   </view>
@@ -56,10 +54,10 @@
       <text class="f32 f-wb" style="margin-right:40rpx;">￥400</text>
     </view>
     <view class="btn t-ac f32 c-ff">去结算</view>
-  </view>
+  </view> -->
 
   <!-- 遮罩 + 购物车内容框 -->
-  <view class="cover" wx:if="{{car}}">
+  <!-- <view class="cover" wx:if="{{car}}">
     <view class="car-content b-ff flex col">
       <view class="title-line flex fl-align fl-jsb">
         <view class="flex fl-align" style="margin-left:10rpx;">
@@ -86,6 +84,6 @@
         </view>
       </scroll-view>
     </view>
-  </view>
+  </view> -->
 
 </view>

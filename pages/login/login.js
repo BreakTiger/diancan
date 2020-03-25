@@ -4,12 +4,6 @@ const app = getApp()
 
 Page({
 
-
-  data: {
-
-  },
-
-
   // 登录-1
   toGetUserInfo: function(e) {
     let that = this
@@ -22,7 +16,7 @@ Page({
     }, {
       'content-type': 'application/json'
     }).then(function(res) {
-      console.log(res)
+      // console.log(res)
       modals.loaded()
       if (res.data.code == 200) {
         let token = res.data.data
@@ -49,7 +43,7 @@ Page({
     request.sendRequest(url, 'post', param, {
       'content-type': 'application/json'
     }).then(function(res) {
-      console.log(res)
+      // console.log(res)
       modals.loaded()
       if (res.data.code == 200) {
         wx.setStorageSync('token', token)

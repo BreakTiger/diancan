@@ -61,10 +61,8 @@ Page({
 
   //我的预定
   toReserve: function() {
-    wx.navigateTo({
-      url: '/pages/reserve/reserve',
-    })
+    // wx.navigateTo({
+    //   url: '/pages/reserve/reserve',
+    // })
   }
-
-
 })
