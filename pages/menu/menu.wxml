@@ -7,7 +7,7 @@
         <image src="/icon/search.png" class="search"></image>
         <text class="f28">搜索</text>
       </view>
-      <view class="nav-tab flex fl-align fl-jse {{choice_nav==item.category_id?'lineleft':'b-f5'}}" wx:for="{{navList}}" wx:key="nav" data-index="{{index}}">
+      <view class="nav-tab flex fl-align fl-jse {{choice_nav==item.category_id?'lineleft':'b-f5'}}" wx:for="{{navList}}" wx:key="nav" data-item="{{item}}">
         <text class="f28">{{item.name}}</text>
       </view>
     </scroll-view>
@@ -15,30 +15,56 @@
 
   <!-- 右侧菜单 -->
   <view class="right-content">
-    <scroll-view class="wh100" scroll-y="true">
-      <block wx:for="{{3}}" wx:key="index">
-        <view class="f28" style="margin:20rpx 20rpx 0 20rpx;">one</view>
-        <view class="menu-list-item flex fl-align fl-jsb ">
-          <image class="b_r12"></image>
-          <view class="item-info flex col">
-            <view class="f25 climp2 w100">我的我的我的我的我的我的我的我的我的</view>
-            <view class="laber f25 t-ac b-f5" style="margin:15rpx 10rpx;">8折</view>
-            <view class="w100 flex fl-align">
-              <text class="f28 c-00 f-wb" style="margin:0 10rpx;">￥10.00</text>
-              <text class="f25 c-66 d-l">￥100.00</text>
+    <scroll-view class="wh100 b-f5" scroll-y="true">
+      <block wx:for="{{menuList}}" wx:key="index">
+        <view class="menu-list-item flex fl-align fl-jsb b-ff">
+          <image class="b_r12" src="{{item.file_name}}"></image>
+          <view class="item-info flex col fl-jse">
+            <view class="f25 climp2 w100">{{item.goods_name}}</view>
+            <view class="f25 flex fl-align" style="margin:15rpx 0;">销量：{{item.sales_actual}}</view>
+            <view class="w100 flex fl-align" style="margin-bottom:10rpx;">
+              <text class="f28 c-00 f-wb" style="margin:0 10rpx;">￥{{item.spec_money[0].goods_price}}</text>
+              <text class="f25 c-66 d-l">￥{{item.spec_money[0].line_price}}</text>
             </view>
             <view class="num flex fl-align fl-jsd">
-              <image src="/icon/add.png" class="b_rh" style="margin-right:20rpx;" wx:if="{{num==0}}"></image>
-              <block style="margin-right:20rpx;" wx:else>
-                <image src="/icon/min.png" class="b_rh"></image>
-                <input class="f25 t-ac" value="{{num}}"></input>
-                <image src="/icon/add.png" class="b_rh"></image>
+              <image src="/icon/add.png" class="b_rh" wx:if="{{item.num==0}}" catchtap="toAddGoods" data-item="{{item}}"></image>
+              <block wx:else>
+                <image src="/icon/min.png" class="b_rh" catchtap="toAdd" data-index="{{index}}"></image>
+                <input class="f25 t-ac" value="{{item.num}}"></input>
+                <image src="/icon/add.png" class="b_rh" catchtap="toMinus" data-index="{{index}}"></image>
               </block>
             </view>
           </view>
         </view>
       </block>
     </scroll-view>
+  </view>
+
+  <!-- 悬浮 商品规格弹窗 -->
+  <view class="cover flex col" wx:if="{{sk}}">
+    <view class="sk-content b-ff flex col fl-align">
+      <!-- 商品信息 -->
+      <view class="flex fl-align">
+        <image src="/icon/close.png" class="close" bindtap="toClose"></image>
+        <image src="{{goods.file_name}}" class="goods-img b_r12"></image>
+        <view class="good-info flex col fl-jse">
+          <view class="f32 f-wb c-00 climp1">{{goods.goods_name}}</view>
+          <view class="f28 c-66 climp1">已选：{{choice_sk_name}}</view>
+          <view class="f25" style="color: #fe2438;">￥{{choice_sk_price}}</view>
+        </view>
+      </view>
+      <!-- 商品规格 -->
+      <scroll-view scroll-y="true">
+        <view class="sk-line flex col" wx:for="{{goods_spec}}" wx:key="id" wx:for-item='item'>
+          <text>{{item.name}}</text>
+          <view class="flex fl-w">
+            <view class="laber f25 t-ac b_r12 b-f5 {{it.id==it.active?'active':''}}" wx:for="{{item.item}}" wx:key="id" bindtap="select" wx:for-item='it' data-laber-index="{{index}}" data-all="{{goods_spec}}" data-item="{{it}}">{{it.name}}</view>
+          </view>
+        </view>
+      </scroll-view>
+      <!-- 确定按钮 -->
+      <view class="f32 f-wb t-ac c-ff b_r12" bindtap="finsh">选 好 了</view>
+    </view>
   </view>
 
   <!-- 悬浮 购物车按钮 + 购物商品数量 + 计算栏 -->
