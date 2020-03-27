@@ -1,13 +1,13 @@
 <view class="container flex fl-align">
 
   <!-- 左侧导航 -->
-  <view class="left-content">
+  <view class="left-content b-f5">
     <scroll-view class="wh100" scroll-y="true">
       <view class="nav-tab flex fl-align fl-jsa b-f5" bindtap="toSearch">
         <image src="/icon/search.png" class="search"></image>
         <text class="f28">搜索</text>
       </view>
-      <view class="nav-tab flex fl-align fl-jse {{choice_nav==item.category_id?'lineleft':'b-f5'}}" wx:for="{{navList}}" wx:key="nav" data-item="{{item}}">
+      <view class="nav-tab flex fl-align fl-jse {{choice_nav==item.category_id?'lineleft b-ff':''}}" wx:for="{{navList}}" wx:key="nav" data-item="{{item}}" bindtap="switchNav">
         <text class="f28">{{item.name}}</text>
       </view>
     </scroll-view>
@@ -15,11 +15,11 @@
 
   <!-- 右侧菜单 -->
   <view class="right-content">
-    <scroll-view class="wh100 b-f5" scroll-y="true">
+    <scroll-view class="wh100" scroll-y="true">
       <block wx:for="{{menuList}}" wx:key="index">
         <view class="menu-list-item flex fl-align fl-jsb b-ff">
           <image class="b_r12" src="{{item.file_name}}"></image>
-          <view class="item-info flex col fl-jse">
+          <view class="item-info b-ff flex col fl-jse">
             <view class="f25 climp2 w100">{{item.goods_name}}</view>
             <view class="f25 flex fl-align" style="margin:15rpx 0;">销量：{{item.sales_actual}}</view>
             <view class="w100 flex fl-align" style="margin-bottom:10rpx;">
@@ -27,12 +27,20 @@
               <text class="f25 c-66 d-l">￥{{item.spec_money[0].line_price}}</text>
             </view>
             <view class="num flex fl-align fl-jsd">
-              <image src="/icon/add.png" class="b_rh" wx:if="{{item.num==0}}" catchtap="toAddGoods" data-item="{{item}}"></image>
+
+              <!-- 多规格 -->
+              <view class="f28 c-ff b-de b_r12" style="padding:6rpx;" wx:if="{{item.spec}}" catchtap="movesk" data-item="{{item}}" data-index="{{index}}">规格</view>
+
+              <!-- 无规格 -->
               <block wx:else>
-                <image src="/icon/min.png" class="b_rh" catchtap="toAdd" data-index="{{index}}"></image>
-                <input class="f25 t-ac" value="{{item.num}}"></input>
-                <image src="/icon/add.png" class="b_rh" catchtap="toMinus" data-index="{{index}}"></image>
+                <image src="/icon/add.png" class="b_rh" wx:if="{{item.num==0}}" catchtap="singlesk" data-index="{{index}}"></image>
+                <block wx:else>
+                  <image src="/icon/min.png" class="b_rh" catchtap="toAdd" data-index="{{index}}"></image>
+                  <input class="f25 t-ac" value="{{item.num}}"></input>
+                  <image src="/icon/add.png" class="b_rh" catchtap="toMinus" data-index="{{index}}"></image>
+                </block>
               </block>
+
             </view>
           </view>
         </view>
@@ -40,8 +48,23 @@
     </scroll-view>
   </view>
 
-  <!-- 悬浮 商品规格弹窗 -->
-  <view class="cover flex col" wx:if="{{sk}}">
+  <!-- 悬浮 购物车按钮 + 购物商品数量 + 计算栏 -->
+  <block wx:if="{{carList.length!=0}}">
+    <view class="shop-car flex fl-align fl-jsa b-ff" catchtap="showCar">
+      <image src="/icon/pakege.png"></image>
+      <text class="f28">购物车</text>
+    </view>
+    <view class="g_nums f25 c-ff b-ff b_rh t-ac">{{carList.length}}</view>
+    <view class="price-line b-ff flex fl-align">
+      <view style="width:70%;height:90rpx;" class="flex fl-align fl-jsd">
+        <text class="f32 f-wb" style="margin-right:40rpx;">￥{{total_price}}</text>
+      </view>
+      <view class="btn t-ac f32 c-ff">去结算</view>
+    </view>
+  </block>
+
+  <!-- 多规格弹窗 -->
+  <view class="cover flex col" wx:if="{{sk}}" style="z-index:500;">
     <view class="sk-content b-ff flex col fl-align">
       <!-- 商品信息 -->
       <view class="flex fl-align">
@@ -67,49 +90,34 @@
     </view>
   </view>
 
-  <!-- 悬浮 购物车按钮 + 购物商品数量 + 计算栏 -->
-  <!-- <view class="shop-car flex fl-align fl-jsa b-ff">
-    <image src="/icon/pakege.png"></image>
-    <text class="f28">购物车</text>
-  </view>
-
-  <view class="g_nums f25 c-ff b-ff b_rh t-ac">120</view>
-
-  <view class="price-line b-ff flex fl-align">
-    <view style="width:70%;height:90rpx;" class="flex fl-align fl-jsd">
-      <text class="f32 f-wb" style="margin-right:40rpx;">￥400</text>
-    </view>
-    <view class="btn t-ac f32 c-ff">去结算</view>
-  </view> -->
-
   <!-- 遮罩 + 购物车内容框 -->
-  <!-- <view class="cover" wx:if="{{car}}">
+  <block wx:if="{{cars}}">
+    <view class="cover" catchtap="closeCar"></view>
     <view class="car-content b-ff flex col">
       <view class="title-line flex fl-align fl-jsb">
         <view class="flex fl-align" style="margin-left:10rpx;">
           <image class="title-icon" src="/icon/car.png"></image>
           <text class="f25 c-66">购物车</text>
         </view>
-        <view class="flex fl-align" style="margin-right:10rpx;">
+        <view class="flex fl-align" style="margin-right:10rpx;" bindtap="cleanCar">
           <image class="title-icon" src="/icon/del.png"></image>
           <text class="f25 c-66">清空购物车</text>
         </view>
       </view>
       <scroll-view class="cars" scroll-y="true">
-        <view class="car-item flex fl-align fl-jsb">
-          <view class="climp1 f28 flex fl-align" style="width:35%;margin-left:20rpx;">1111111111111</view>
-          <view class="flex fl-align" style="width:24%;">
-            <text class="f28 f-wb">￥400</text>
-            <text class="f25 c-66 d-l">￥100</text>
-          </view>
-          <view class="flex fl-align fl-jsb" style="width:28%;margin-right:20rpx;">
-            <image src="/icon/min.png" class="b_rh icon"></image>
-            <input class="f25 t-ac nums" value="{{num}}"></input>
-            <image src="/icon/add.png" class="b_rh icon"></image>
+        <view class="car-item flex fl-align fl-jsb" wx:for="{{carList}}" wx:key="index">
+          <image src="{{item.image}}" class="b_r12" style="margin-left:20rpx;"></image>
+          <view class="f28 climp1" style="width:210rpx;">{{item.goods_name+item.goods_attr}}</view>
+          <view class="f28 f-wb t-ac" style="width:160rpx;">￥{{item.goods_price}}</view>
+          <view class="flex fl-align fl-jsb" style="margin-right:20rpx;">
+            <image src="/icon/min.png" class="b_rh icon" catchtap="edu_min" data-item="{{item}}"></image>
+            <input class="f25 t-ac nums" value="{{item.total_num}}"></input>
+            <image src="/icon/add.png" class="b_rh icon" catchtap="edu_add" data-item="{{item}}"></image>
           </view>
         </view>
       </scroll-view>
     </view>
-  </view> -->
+  </block>
+
 
 </view>

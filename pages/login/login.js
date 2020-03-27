@@ -16,13 +16,16 @@ Page({
     }, {
       'content-type': 'application/json'
     }).then(function(res) {
-      // console.log(res)
       modals.loaded()
-      if (res.data.code == 200) {
-        let token = res.data.data
-        that.upUserinfo(info, token)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          let token = res.data.data
+          that.upUserinfo(info, token)
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
   },
@@ -43,15 +46,18 @@ Page({
     request.sendRequest(url, 'post', param, {
       'content-type': 'application/json'
     }).then(function(res) {
-      // console.log(res)
       modals.loaded()
-      if (res.data.code == 200) {
-        wx.setStorageSync('token', token)
-        wx.navigateBack({
-          delta: 1
-        })
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          wx.setStorageSync('token', token)
+          wx.navigateBack({
+            delta: 1
+          })
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
   }

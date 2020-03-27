@@ -12,73 +12,73 @@ Page({
     choice_nav: null, //分类ID（选择的）
 
     menuList: [], //菜单列表
+    carList: [], //购物车列表
 
-    goods: {}, //单个商品信息
-    goods_spec: [], //单个商品的规格
-    goods_spec_money: [], //单个商品的规格价格
+    //多规格
+    goods: {}, //选择的商品信息
+    goods_spec: [], //选择的商品规格
+    goods_spec_money: [], //选择的商品规格价格
+    goods_index: null, //所选的最外层下标
+
+    //多，单共用
     choice_sk_name: '', //所选的规格
     choice_sk_price: '0.00', //所选规格的对应价位
+    choice_sk_id: null, //所选规格ID
 
-    //显示控制
+    sk: false, //规格弹窗显示
 
-    sk: false, //规格显示
+    cars: false, //购物车内容显示
 
-    car: false
+    total_price: '0.00' //总价
+
   },
 
   onLoad: function(options) {
     let detail = app.globalData.item
     this.setData({
-      detail: detail
+      detail: detail,
+      tid: detail.goods_id
     })
-    this.getKind()
+    this.getKind() //分类导航
   },
 
-  // 获取分类
+  // 分类导航
   getKind: function() {
     let that = this
     let url = app.globalData.api + '?s=wxapi/Classify/get_class'
     request.sendRequest(url, 'post', {}, {
       'content-type': 'application/json'
     }).then(function(res) {
-      if (res.data.code == 200) {
-        let list = res.data.data
-        // console.log(list)
-        that.setData({
-          navList: list
-        })
-        // 判断是否存在推荐
-        let item = that.data.detail
-        // console.log('推荐：', item)
-        if (item.category_id) {
-          let c_id = item.category_id
-          let t_id = item.goods_id
-          console.log("推荐")
-          // console.log('分类ID：', c_id)
-          // console.log('推荐ID：', t_id)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          let list = res.data.data
           that.setData({
-            choice_nav: c_id,
-            tid: t_id
+            navList: list
           })
+          // 判断是否存在推荐
+          if (that.data.tid) {
+            console.log("推荐")
+            that.setData({
+              choice_nav: that.data.detail.category_id
+            })
+          } else {
+            console.log('默认')
+            that.setData({
+              choice_nav: list[0].category_id,
+              tid: that.data.tid
+            })
+          }
+          that.getKlist()
         } else {
-          let c_id = list[0].category_id
-          let t_id = that.data.tid
-          console.log('默认')
-          // console.log('分类ID:', c_id)
-          // console.log('推荐ID：', t_id)
-          that.setData({
-            choice_nav: c_id,
-            tid: t_id
-          })
+          modals.showToast(res.data.msg, 'none')
         }
-        that.getKlist()
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
   },
 
-  // 分类对应的列表
+  // 分类菜单
   getKlist: function() {
     let that = this
     let data = {
@@ -90,37 +90,136 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      if (res.data.code == 200) {
-        let list = res.data.data
-        for (let i = 0; i < list.length; i++) {
-          list[i].file_name = 'https://canyin.dt5555.cn/uploads/' + list[i].file_name
-          list[i].num = 0
+      // console.log(res)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          let list = res.data.data
+          for (let i = 0; i < list.length; i++) {
+            list[i].file_name = 'https://canyin.dt5555.cn/uploads/' + list[i].file_name
+            list[i].num = 0
+          }
+          that.setData({
+            menuList: list
+          })
+          that.getCar()
+        } else {
+          modals.showToast(res.data.msg, 'none')
         }
-        // console.log(list)
-        that.setData({
-          menuList: list
-        })
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
-
   },
 
-  // 搜索
-  toSearch: function() {
-    wx.navigateTo({
-      url: '/pages/menu/search/search',
+  //购物车
+  getCar: function() {
+    let that = this
+    let data = {
+      token: wx.getStorageSync('token')
+    }
+    let url = app.globalData.api + '?s=wxapi/Cart/index'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      // console.log(res)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.setData({
+            carList: res.data.data
+          })
+          that.jugeList()
+          that.calculate()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
     })
   },
 
-  // 规格弹窗 : 设置默认选择
-  toAddGoods: function(e) {
+  //单规格商品专用:同步购物车所选菜品数量，及菜单中被选中的菜品的数量
+  jugeList: function() {
+    let mlist = this.data.menuList
+    let clist = this.data.carList
+    mlist.forEach(function(one, index) {
+      if (one.spec_type == 10) {
+        clist.forEach(function(two, index) {
+          if (one.goods_id == two.goods_id) {
+            one.num = two.total_num
+          }
+        })
+      }
+    })
+    this.setData({
+      menuList: mlist
+    })
+  },
+
+  // 计算总价
+  calculate: function() {
+    let that = this
+    let clist = that.data.carList
+    let total = 0
+    clist.forEach(function(item) {
+      let price = item.goods_price * item.total_num
+      total += price
+    })
+    this.setData({
+      total_price: total.toFixed(2)
+    })
+  },
+
+  // 切换分类
+  switchNav: function(e) {
+    let select = e.currentTarget.dataset.item.category_id
+    let cid = this.data.choice_nav
+    if (select != cid) {
+      this.setData({
+        choice_nav: select,
+        tid: null
+      })
+      this.getKlist()
+    }
+  },
+
+  // 单规格
+  singlesk: function(e) {
+    let indexs = e.currentTarget.dataset.index
+    let list = this.data.menuList
+    // 数量增加1
+    list.forEach(function(item, index) {
+      if (index == indexs) {
+        item.num = item.num + 1
+      }
+    })
+    console.log(list)
+    this.setData({
+      menuList: list
+    })
+    let item = list[indexs]
+    let data = {
+      token: wx.getStorageSync('token'),
+      goods_id: item.goods_id,
+      goods_name: item.goods_name,
+      image: item.file_name,
+      total_num: item.num,
+      goods_price: item.spec_money[0].goods_price,
+      goods_attr: '',
+      goods_spec_id: item.spec_money[0].goods_spec_id
+    }
+    console.log('单规格：', data)
+    this.joinCar(data)
+  },
+
+  // 多规格
+  movesk: function(e) {
+    let index = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
     let spec = item.spec
     let s_monry = item.spec_money
 
-    // 增加属性，用于判断是否选择
+    // 增加active属性
     spec.forEach(function(one) {
       let ones = one.item
       ones.forEach(function(two, index) {
@@ -136,17 +235,18 @@ Page({
       sk: true,
       goods: item,
       goods_spec: spec,
-      goods_spec_money: s_monry
+      goods_spec_money: s_monry,
+      goods_index: index
     })
-
     this.setChoice(s_monry)
   },
 
-  // 已选规格 + 价格
+  // 已选规格 + 规格价位
   setChoice: function(e) {
     let nums = ''
     let choice_sk = ''
     let choice_price = ''
+    let choice_id = null
     let spec = this.data.goods_spec
     spec.forEach(function(item) {
       let one = item.item
@@ -162,21 +262,21 @@ Page({
     e.forEach(function(item) {
       if (nums == item.spec_sku_id) {
         choice_price = item.goods_price
+        choice_id = item.goods_spec_id
       }
     })
     this.setData({
       choice_sk_name: choice_sk,
-      choice_sk_price: choice_price
+      choice_sk_price: choice_price,
+      choice_sk_id: choice_id
     })
-    console.log(nums)
-    console.log(choice_sk)
-    console.log(choice_price)
   },
 
   // 选择规格
   select: function(e) {
-    let all = e.currentTarget.dataset.all
     let item = e.currentTarget.dataset.item
+    let all = e.currentTarget.dataset.all
+    let inside = e.currentTarget.dataset.laberIndex
     // 获取外部Index
     let out = null;
     all.forEach(function(one, index) {
@@ -187,14 +287,11 @@ Page({
         }
       })
     })
-    // console.log('外部Index:', out)
-    let labindex = e.currentTarget.dataset.laberIndex
-    // console.log('内部Index:', labindex)
     all.forEach(function(one, index) {
       if (index == out) {
         let two = one.item
         two.forEach(function(twice, index) {
-          if (labindex == index) {
+          if (inside == index) {
             twice.active = twice.id
           } else {
             twice.active = null
@@ -210,13 +307,97 @@ Page({
 
   // 选好
   finsh: function() {
+    let that = this
+    let list = that.data.menuList
+    let indexs = that.data.goods_index
+    // 增加1
+    list.forEach(function(item, index) {
+      if (index == indexs) {
+        item.num = 1
+      }
+    })
+    let item = list[indexs]
+    let data = {
+      token: wx.getStorageSync('token'),
+      goods_id: item.goods_id,
+      goods_name: item.goods_name,
+      image: item.file_name,
+      total_num: item.num,
+      goods_price: that.data.choice_sk_price,
+      goods_attr: that.data.choice_sk_name,
+      goods_spec_id: that.data.choice_sk_id
+    }
+    console.log('多规格：', data)
 
+    this.setData({
+      sk: false,
+      menuList: list
+    })
+    this.joinCar(data)
   },
 
+  // 加入购物车
+  joinCar: function(param) {
+    let that = this
+    let url = app.globalData.api + '?s=wxapi/Cart/add';
+    request.sendRequest(url, 'post', param, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      console.log(res)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.setData({
+            sk: false
+          })
+          that.getCar()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  },
 
+  // 展示购物车内容 
+  showCar: function() {
+    this.setData({
+      cars: true
+    })
+  },
 
+  // 关闭购物车内容
+  closeCar: function() {
+    this.setData({
+      cars: false
+    })
+  },
 
-
+  // 清空购物车
+  cleanCar: function() {
+    let that = this
+    let data = {
+      token: wx.getStorageSync('token'),
+      all: 1
+    }
+    let url = app.globalData.api + '?s=wxapi/Cart/delete'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.setData({
+            cars: false
+          })
+          that.getKlist()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  },
 
   //关闭规格窗口
   toClose: function() {
@@ -225,7 +406,32 @@ Page({
     })
   },
 
+  // 单规格
+  // 减少
+  edu_min: function(e) {
+    let item = e.currentTarget.dataset.item
+    console.log(item)
+    if (item.total_num > 1) {
+      this.min()
+    } else {
+      this.delLog()
+    }
+  },
 
+  // 减少数量
+  min: function() {
 
+  },
 
+  // 删除菜品
+  delLog: function() {
+
+  },
+
+  // 增加
+  edu_add: function(e) {
+    let item = e.currentTarget.dataset.item
+    console.log(item)
+
+  },
 })
