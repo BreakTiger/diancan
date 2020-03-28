@@ -6,7 +6,7 @@
 }
 
 .banner {
-  height: 200rpx;
+  height: 320rpx;
 }
 
 .nav-line {
@@ -32,4 +32,10 @@
 .list-item>image {
   height: 155rpx;
   margin-bottom: 10rpx;
+}
+
+.block-img {
+  width: 90rpx;
+  height: 90rpx;
+  margin-bottom: 20rpx;
 }

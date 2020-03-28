@@ -31,6 +31,11 @@ Page({
           that.setData({
             list: res.data.data.data
           })
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
         } else {
           modals.showToast(res.data.msg, 'none')
         }
@@ -54,6 +59,11 @@ Page({
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.payMemnt(res.data.data)
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
         } else {
           modals.showToast(res.data.msg, 'none')
         }
@@ -102,6 +112,11 @@ Page({
         if (res.data.code == 200) {
           wx.navigateTo({
             url: '/pages/menu/menu',
+          })
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
           })
         } else {
           modals.showToast(res.data.msg, 'none')

@@ -11,12 +11,7 @@ Page({
         text: '自助下单',
         path: '/pages/menu/menu',
       },
-      // {
-      //   icon: '/icon/nav-2.png',
-      //   text: '预约',
-      //   path: '/pages/reserve/reserve',
-      // },
-       {
+      {
         icon: '/icon/nav-3.png',
         text: '订单',
         path: '/pages/order/order',
@@ -26,16 +21,33 @@ Page({
         path: '/pages/mine/mine',
       }
     ],
+    block: [{
+        icon: '/icon/draw.png',
+        text: '幸运大转盘'
+      },
+      {
+        icon: '/icon/scratch.png',
+        text: '抽奖刮刮乐'
+      },
+      {
+        icon: '/icon/group.png',
+        text: '商品拼团'
+      }
+    ],
     r_list: []
   },
 
   onLoad: function(options) {
-    // let seat = options
-    console.log(options)
-    //设置座位
+    // 获取扫码参数 - 座位
+    let scene = decodeURIComponent(options.scene) //参数二维码传递过来的参数
+    console.log(scene)
+    // let query = options.query.dentistId // 参数二维码传递过来的场景参数
+    // console.log(query)
+    //设置
     let seat = 1
     wx.setStorageSync('seat', seat)
     this.getBanner()
+
   },
 
   // 轮播图
@@ -45,14 +57,19 @@ Page({
     request.sendRequest(url, 'post', {}, {
       'content-type': 'application/json'
     }).then(function(res) {
-      if (res.data.code == 200) {
-        that.setData({
-          lunbo: res.data.data
-        })
-        that.getTui()
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.setData({
+            lunbo: res.data.data
+          })
+          that.getTui()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
+
     })
   },
 
@@ -63,16 +80,20 @@ Page({
     request.sendRequest(url, 'post', {}, {
       'content-type': 'application/json'
     }).then(function(res) {
-      if (res.data.code == 200) {
-        let list = res.data.data
-        for (let i = 0; i < list.length; i++) {
-          list[i].file_name = 'https://canyin.dt5555.cn/uploads/' + list[i].file_name
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          let list = res.data.data
+          for (let i = 0; i < list.length; i++) {
+            list[i].file_name = 'https://canyin.dt5555.cn/uploads/' + list[i].file_name
+          }
+          that.setData({
+            r_list: list
+          })
+        } else {
+          modals.showToast(res.data.msg, 'none')
         }
-        that.setData({
-          r_list: list
-        })
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
   },

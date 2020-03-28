@@ -32,19 +32,19 @@
   </view>
 
   <!-- 余额 -->
-  <!-- <view class="line flex col">
+  <view class="line flex col">
     <view class="f32 c-00 f-wb">余额</view>
     <view class="flex fl-align fl-jsb">
       <text class="f40 c-00 f-wb">0.00</text>
       <view class="c-btn f28 f-wb b_r20">充值</view>
     </view>
-  </view> -->
+  </view>
 
   <!-- 我的积分 -->
-  <!-- <view class="line h80 flex fl-align fl-jsb">
+  <view class="line h80 flex fl-align fl-jsb">
     <text class="f28">我的积分</text>
     <text class="f28">0积分</text>
-  </view> -->
+  </view>
 
   <!-- 我的订单 -->
   <view class="line h80 flex fl-align fl-jsb" bindtap="toOrder">
@@ -54,7 +54,7 @@
 
   <!-- 我的预约 -->
   <view class="line h80 flex fl-align fl-jsb" bindtap="toReserve">
-    <text class="f28">我的预约</text>
+    <text class="f28">我的券包</text>
     <image src="/icon/go.png"></image>
   </view>
 

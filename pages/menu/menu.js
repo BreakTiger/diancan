@@ -39,6 +39,9 @@ Page({
       detail: detail,
       tid: detail.goods_id
     })
+  },
+
+  onShow: function() {
     this.getKind() //分类导航
   },
 
@@ -128,6 +131,11 @@ Page({
           })
           that.jugeList()
           that.calculate()
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
         } else {
           modals.showToast(res.data.msg, 'none')
         }
@@ -384,6 +392,11 @@ Page({
             cars: false
           })
           that.getKlist()
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
         } else {
           modals.showToast(res.data.msg, 'none')
         }

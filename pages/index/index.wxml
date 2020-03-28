@@ -18,19 +18,28 @@
   </view>
 
   <!-- 推荐 -->
-  <view class="flex fl-align fl-jsb">
-    <text class="f20">推荐（{{r_list.length}}）</text>
-    <image src="/icon/go.png" class="go"></image>
-  </view>
+  <block wx:if="{{r_list.length!=0}}">
+    <view class="flex fl-align fl-jsb">
+      <text class="f20">推荐（{{r_list.length}}）</text>
+      <image src="/icon/go.png" class="go"></image>
+    </view>
 
-  <!-- 推荐商品，显示4中 -->
-  <view class="recommend flex fl-align flex fl-align">
-    <view class="list-item flex col fl-align" wx:for="{{r_list}}" wx:key="index" data-index="{{index}}" bindtap="toRecommend" data-item="{{item}}" wx:if="{{index<4}}">
-      <image src="{{item.file_name}}" class="w100"></image>
-      <view class="f25 climp1 w100">{{item.goods_name}}</view>
+    <!-- 推荐商品，显示4中 -->
+    <view class="recommend flex fl-align flex fl-align">
+      <view class="list-item flex col fl-align" wx:for="{{r_list}}" wx:key="index" data-index="{{index}}" bindtap="toRecommend" data-item="{{item}}" wx:if="{{index<4}}">
+        <image src="{{item.file_name}}" class="w100"></image>
+        <view class="f25 climp1 w100">{{item.goods_name}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 营销模块 -->
+  <view class="f20">营销模块</view>
+  <view class=" flex fl-w fl-align">
+    <view class="flex col fl-align" wx:for="{{block}}" wx:key="index" style="margin:0 15rpx;">
+      <image class="block-img b_r12" src="{{item.icon}}"></image>
+      <text class="f28">{{item.text}}</text>
     </view>
   </view>
 
-  <view class="f20">更多功能正在预备中...</view>
-  
 </view>

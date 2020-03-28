@@ -48,6 +48,9 @@
     </scroll-view>
   </view>
 
+  <!-- 底部导航 -->
+  
+
   <!-- 悬浮 购物车按钮 + 购物商品数量 + 计算栏 -->
   <block wx:if="{{carList.length!=0}}">
     <view class="shop-car flex fl-align fl-jsa b-ff" catchtap="showCar">
@@ -55,7 +58,7 @@
       <text class="f28">购物车</text>
     </view>
     <view class="g_nums f25 c-ff b-ff b_rh t-ac">{{carList.length}}</view>
-    <view class="price-line b-ff flex fl-align">
+    <view class="price-line b-f5 flex fl-align">
       <view style="width:70%;height:90rpx;" class="flex fl-align fl-jsd">
         <text class="f32 f-wb" style="margin-right:40rpx;">￥{{total_price}}</text>
       </view>

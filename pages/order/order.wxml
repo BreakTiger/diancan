@@ -3,7 +3,7 @@
     <view class="flex fl-align fl-jsb">
       <view>
         <image src="/icon/shop.png" class="shop-icon"></image>
-        <!-- <text class="f28 c-66">我的</text> -->
+        <text class="f28 c-66">我的</text>
       </view>
       <text class="f28 c-66" wx:if="{{item.pay_status==10}}">待支付</text>
       <text class="f28 c-66" wx:if="{{item.pay_status==20}}">已完成</text>
@@ -20,5 +20,6 @@
       <view class="f28 c-00 btn b_r12" wx:if="{{item.pay_status==20}}" data-item="{{item}}" catchtap="buyAgagin">再来一单</view>
     </view>
   </view>
+  <view wx:if="{{list.length==0}}" style="margin-top:40rpx;">暂无数据</view>
   <view style="width:100%;height:100rpx;"></view>
 </view>

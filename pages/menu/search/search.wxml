@@ -23,12 +23,12 @@
 
           <!-- 多规格 -->
           <block wx:if="{{item.spec}}">
-            <view class="f28 c-ff b-de b_r12" style="padding:6rpx;">规格</view>
+            <view class="f28 c-ff b-de b_r12" style="padding:6rpx;" bindtap="movesk" data-index="{{index}}" data-item="{{item}}">规格</view>
           </block>
 
           <!-- 单规格 -->
           <block wx:else>
-            <image src="/icon/add.png" class="b_rh" wx:if="{{item.num==0}}"></image>
+            <image src="/icon/add.png" class="b_rh" wx:if="{{item.num==0}}" bindtap="singlesk" data-index="{{index}}"></image>
             <block style="margin-right:20rpx;" wx:else>
               <image src="/icon/min.png" class="b_rh"></image>
               <input class="f25 t-ac" value="{{item.num}}"></input>
@@ -41,6 +41,33 @@
       </view>
     </view>
   </block>
+
+  <!-- 多规格弹窗 -->
+  <view class="cover flex col" wx:if="{{sk}}" style="z-index:500;">
+    <view class="sk-content b-ff flex col fl-align">
+      <!-- 商品信息 -->
+      <view class="flex fl-align">
+        <image src="/icon/close.png" class="close" bindtap="toClose"></image>
+        <image src="{{goods.file_name}}" class="goods-img b_r12"></image>
+        <view class="good-info flex col fl-jse">
+          <view class="f32 f-wb c-00 climp1">{{goods.goods_name}}</view>
+          <view class="f28 c-66 climp1">已选：{{choice_sk_name}}</view>
+          <view class="f25" style="color: #fe2438;">￥{{choice_sk_price}}</view>
+        </view>
+      </view>
+      <!-- 商品规格 -->
+      <scroll-view scroll-y="true">
+        <view class="sk-line flex col" wx:for="{{goods_spec}}" wx:key="id" wx:for-item='item'>
+          <text>{{item.name}}</text>
+          <view class="flex fl-w">
+            <view class="laber f25 t-ac b_r12 b-f5 {{it.id==it.active?'active':''}}" wx:for="{{item.item}}" wx:key="id" bindtap="select" wx:for-item='it' data-laber-index="{{index}}" data-all="{{goods_spec}}" data-item="{{it}}">{{it.name}}</view>
+          </view>
+        </view>
+      </scroll-view>
+      <!-- 确定按钮 -->
+      <view class="f32 f-wb t-ac c-ff b_r12" bindtap="finsh">选 好 了</view>
+    </view>
+  </view>
 
 
 

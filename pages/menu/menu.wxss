@@ -97,6 +97,7 @@
   position: fixed;
   bottom: 0rpx;
   z-index: 200;
+  border-top: 1rpx solid #f5f5f5;
 }
 
 .btn {
@@ -137,7 +138,7 @@
   border-bottom: 1rpx solid #f5f5f5;
 }
 
-.car-item>image{
+.car-item>image {
   width: 100rpx;
   height: 100rpx;
 }

@@ -22,12 +22,21 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      if (res.data.code == 200) {
-        that.setData({
-          users: res.data.data
-        })
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.setData({
+            users: res.data.data
+          })
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
   },
@@ -46,10 +55,22 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      console.log(res)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          modals.showToast(res.data.msg, 'none')
+          that.getUser()
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
     })
-
-
   },
 
   // 我的订单

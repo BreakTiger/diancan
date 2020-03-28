@@ -36,6 +36,11 @@ Page({
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.payMemnt(res.data.data)
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
         } else {
           modals.showToast(res.data.msg, 'none')
         }
@@ -89,6 +94,11 @@ Page({
           wx.navigateTo({
             url: '/pages/menu/menu',
           })
+        } else if (res.data.code == 10000) {
+          modals.showToast(res.data.msg, 'none')
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
         } else {
           modals.showToast(res.data.msg, 'none')
         }
@@ -96,5 +106,5 @@ Page({
         modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
-  },
+  }
 })
