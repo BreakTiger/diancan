@@ -73,13 +73,12 @@ Page({
       paySign: e.paySign,
       success: function(res) {
         modals.showToast('支付成功', 'success')
-        setTimeout(function() {
-          that.getList()
-        }, 2000)
         this.setData({
           page: 1
         })
-        this.getList()
+        setTimeout(function() {
+          this.getList()
+        }, 1000)
       },
       fail: function(res) {
         modals.showToast('支付失败', 'none')
@@ -89,7 +88,28 @@ Page({
 
   // 再买一次
   buyAgagin: function(e) {
-    console.log(e)
+    let that = this
+    let data = {
+      token: wx.getStorageSync('token'),
+      order_id: e.currentTarget.dataset.item.order_id
+    }
+    let url = app.globalData.api + '?s=wxapi/Cart/repetition'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      console.log(res.data)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          wx.navigateTo({
+            url: '/pages/menu/menu',
+          })
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
   },
 
   // 详情

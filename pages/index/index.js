@@ -11,11 +11,12 @@ Page({
         text: '自助下单',
         path: '/pages/menu/menu',
       },
-      {
-        icon: '/icon/nav-2.png',
-        text: '预约',
-        path: '/pages/reserve/reserve',
-      }, {
+      // {
+      //   icon: '/icon/nav-2.png',
+      //   text: '预约',
+      //   path: '/pages/reserve/reserve',
+      // },
+       {
         icon: '/icon/nav-3.png',
         text: '订单',
         path: '/pages/order/order',

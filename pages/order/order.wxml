@@ -3,7 +3,7 @@
     <view class="flex fl-align fl-jsb">
       <view>
         <image src="/icon/shop.png" class="shop-icon"></image>
-        <text class="f28 c-66">我的</text>
+        <!-- <text class="f28 c-66">我的</text> -->
       </view>
       <text class="f28 c-66" wx:if="{{item.pay_status==10}}">待支付</text>
       <text class="f28 c-66" wx:if="{{item.pay_status==20}}">已完成</text>
@@ -11,7 +11,7 @@
     <view class="flex fl-align fl-jsb">
       <image src="" class="order-img b_r12"></image>
       <view class="order-info flex col fl-jse">
-        <view class="f28 c-00">下单时间：{{item.pay_time}}</view>
+        <view class="f28 c-00">下单时间：{{item.create_time}}</view>
         <view class="f28 c-00">总价：￥{{item.pay_price}}</view>
       </view>
     </view>

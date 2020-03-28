@@ -10,6 +10,7 @@
 }
 
 .nav-line {
+  width: 82% !important;
   height: 150rpx;
 }
 

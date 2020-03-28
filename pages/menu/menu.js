@@ -530,4 +530,11 @@ Page({
     })
   },
 
+  // 搜索
+  toSearch: function() {
+    wx.navigateTo({
+      url: '/pages/menu/search/search',
+    })
+  },
+
 })

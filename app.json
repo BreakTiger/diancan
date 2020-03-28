@@ -8,7 +8,8 @@
     "pages/menu/toOrder/toOrder",
     "pages/order/order",
     "pages/order/order-detail/order-detail",
-    "pages/reserve/reserve"
+    "pages/reserve/reserve",
+    "pages/mine/member/member"
   ],
   "window": {
     "backgroundTextStyle": "light",
