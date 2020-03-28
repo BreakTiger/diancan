@@ -25,21 +25,23 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      if (res.data.code == 200) {
-        let list = res.data.data.data
-        that.setData({
-          list: res.data.data.data
-        })
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          let list = res.data.data.data
+          that.setData({
+            list: res.data.data.data
+          })
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
       } else {
-        modals.showToast(res.data.msg, 'none')
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
   },
 
   // 继续支付
   toPay: function(e) {
-    // let item = 
-    // console.log(item)
     let that = this
     let data = {
       order_id: e.currentTarget.dataset.item.order_id,
@@ -49,7 +51,6 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      console.log(res.data.data)
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.payMemnt(res.data.data)
@@ -75,6 +76,10 @@ Page({
         setTimeout(function() {
           that.getList()
         }, 2000)
+        this.setData({
+          page: 1
+        })
+        this.getList()
       },
       fail: function(res) {
         modals.showToast('支付失败', 'none')

@@ -5,11 +5,10 @@
     "pages/login/login",
     "pages/menu/menu",
     "pages/menu/search/search",
-    "pages/mine/payCode/payCode",
+    "pages/menu/toOrder/toOrder",
     "pages/order/order",
-    "pages/reserve/reserve",
-    "pages/recommend/recommend",
-    "pages/order/order-detail/order-detail"
+    "pages/order/order-detail/order-detail",
+    "pages/reserve/reserve"
   ],
   "window": {
     "backgroundTextStyle": "light",

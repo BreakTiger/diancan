@@ -90,7 +90,6 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      // console.log(res)
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           let list = res.data.data
@@ -193,7 +192,6 @@ Page({
         item.num = item.num + 1
       }
     })
-    console.log(list)
     this.setData({
       menuList: list
     })
@@ -218,7 +216,6 @@ Page({
     let item = e.currentTarget.dataset.item
     let spec = item.spec
     let s_monry = item.spec_money
-
     // 增加active属性
     spec.forEach(function(one) {
       let ones = one.item
@@ -230,7 +227,6 @@ Page({
         }
       })
     })
-
     this.setData({
       sk: true,
       goods: item,
@@ -328,7 +324,6 @@ Page({
       goods_spec_id: that.data.choice_sk_id
     }
     console.log('多规格：', data)
-
     this.setData({
       sk: false,
       menuList: list
@@ -343,7 +338,6 @@ Page({
     request.sendRequest(url, 'post', param, {
       'content-type': 'application/json'
     }).then(function(res) {
-      console.log(res)
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.setData({
@@ -406,32 +400,134 @@ Page({
     })
   },
 
-  // 单规格
+  // 单规格 (购物车)
   // 减少
   edu_min: function(e) {
+    let index = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
-    console.log(item)
     if (item.total_num > 1) {
-      this.min()
+      let data = {
+        token: wx.getStorageSync('token'),
+        id: index,
+        total_num: parseInt(item.total_num) - 1
+      }
+      this.editor(data)
     } else {
-      this.delLog()
+      let data = {
+        token: wx.getStorageSync('token'),
+        id: index
+      }
+      this.delLog(data)
+      let clist = this.data.carList
+      if (clist.length == 1) {
+        this.setData({
+          cars: false
+        })
+      }
     }
-  },
-
-  // 减少数量
-  min: function() {
-
-  },
-
-  // 删除菜品
-  delLog: function() {
-
   },
 
   // 增加
   edu_add: function(e) {
+    let index = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
-    console.log(item)
-
+    let data = {
+      token: wx.getStorageSync('token'),
+      id: index,
+      total_num: parseInt(item.total_num) + 1
+    }
+    this.editor(data)
   },
+
+  // 菜单
+  // 增加
+  toAdd: function(e) {
+    let that = this
+    let item = e.currentTarget.dataset.item
+    let clist = this.data.carList
+    clist.forEach(function(items, index) {
+      if (items.goods_id == item.goods_id) {
+        let data = {
+          token: wx.getStorageSync('token'),
+          id: index,
+          total_num: parseInt(items.total_num) + 1
+        }
+        console.log(data)
+        that.editor(data)
+      }
+    })
+  },
+
+  // 减少
+  toMinus: function(e) {
+    let that = this
+    let item = e.currentTarget.dataset.item
+    let clist = this.data.carList
+    clist.forEach(function(items, index) {
+      if (items.goods_id == item.goods_id) {
+        if (items.total_num > 1) {
+          let data = {
+            token: wx.getStorageSync('token'),
+            id: index,
+            total_num: parseInt(items.total_num) - 1
+          }
+          that.editor(data)
+        } else {
+          let data = {
+            token: wx.getStorageSync('token'),
+            id: index
+          }
+          that.delLog(data)
+          that.getKlist()
+        }
+      }
+    })
+  },
+
+  // 编辑商品数量 增加/减少
+  editor: function(data) {
+    let that = this
+    let url = app.globalData.api + '?s=wxapi/Cart/eidt'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.getCar()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  },
+
+  // 删除菜品
+  delLog: function(data) {
+    let that = this
+    let url = app.globalData.api + '?s=wxapi/Cart/delete'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.getCar()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  },
+
+  // 去结算
+  toOrder: function() {
+    let car = JSON.stringify(this.data.carList)
+    wx.navigateTo({
+      url: '/pages/menu/toOrder/toOrder?arr=' + car,
+    })
+  },
+
 })

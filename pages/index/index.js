@@ -29,6 +29,11 @@ Page({
   },
 
   onLoad: function(options) {
+    // let seat = options
+    console.log(options)
+    //设置座位
+    let seat = 1
+    wx.setStorageSync('seat', seat)
     this.getBanner()
   },
 
@@ -77,7 +82,7 @@ Page({
     let path = item.path
     if (item.text == '自助下单') {
       app.globalData.item = {}
-    } 
+    }
     wx.navigateTo({
       url: path,
     })

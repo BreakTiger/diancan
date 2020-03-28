@@ -35,9 +35,9 @@
               <block wx:else>
                 <image src="/icon/add.png" class="b_rh" wx:if="{{item.num==0}}" catchtap="singlesk" data-index="{{index}}"></image>
                 <block wx:else>
-                  <image src="/icon/min.png" class="b_rh" catchtap="toAdd" data-index="{{index}}"></image>
+                  <image src="/icon/min.png" class="b_rh" catchtap="toMinus" data-item="{{item}}"></image>
                   <input class="f25 t-ac" value="{{item.num}}"></input>
-                  <image src="/icon/add.png" class="b_rh" catchtap="toMinus" data-index="{{index}}"></image>
+                  <image src="/icon/add.png" class="b_rh" catchtap="toAdd" data-item="{{item}}"></image>
                 </block>
               </block>
 
@@ -59,7 +59,7 @@
       <view style="width:70%;height:90rpx;" class="flex fl-align fl-jsd">
         <text class="f32 f-wb" style="margin-right:40rpx;">￥{{total_price}}</text>
       </view>
-      <view class="btn t-ac f32 c-ff">去结算</view>
+      <view class="btn t-ac f32 c-ff" bindtap="toOrder">去结算</view>
     </view>
   </block>
 
@@ -110,9 +110,9 @@
           <view class="f28 climp1" style="width:210rpx;">{{item.goods_name+item.goods_attr}}</view>
           <view class="f28 f-wb t-ac" style="width:160rpx;">￥{{item.goods_price}}</view>
           <view class="flex fl-align fl-jsb" style="margin-right:20rpx;">
-            <image src="/icon/min.png" class="b_rh icon" catchtap="edu_min" data-item="{{item}}"></image>
+            <image src="/icon/min.png" class="b_rh icon" catchtap="edu_min" data-item="{{item}}" data-index="{{index}}"></image>
             <input class="f25 t-ac nums" value="{{item.total_num}}"></input>
-            <image src="/icon/add.png" class="b_rh icon" catchtap="edu_add" data-item="{{item}}"></image>
+            <image src="/icon/add.png" class="b_rh icon" catchtap="edu_add" data-item="{{item}}" data-index="{{index}}"></image>
           </view>
         </view>
       </scroll-view>

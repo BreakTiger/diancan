@@ -1,0 +1,39 @@
+<view class="container flex col fl-align">
+
+  <!-- 商品 -->
+  <view class="goods b-ff b_r12 flex col fl-align">
+    <view class="f28" style="padding:20rpx 0;border-bottom:1rpx solid #f5f5f5;">共{{carList.length}}份商品</view>
+    <view class="flex col flex">
+      <view class="w100 flex fl-align fl-jsb" style="padding:20rpx 0;" wx:for="{{carList}}" wx:key="index">
+        <image src="{{item.image}}" class="good-img b_r12"></image>
+        <view class="good-info flex col">
+          <view class="f28">{{item.goods_name}}</view>
+          <view class="f28 c-66" wx:if="{{item.goods_attr}}">{{item.goods_attr}}</view>
+          <view class="f28 c-66" wx:else>无</view>
+          <text class="f28 c-66">X{{item.total_num}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置座号 -->
+  <view class="b-ff b_r12 flex fl-align fl-jsb" style="padding:20rpx 0;">
+    <text class="f28" style="margin-left:20rpx;">桌号</text>
+    <view style="margin-right:20rpx;" class="flex fl-align">
+      <input class="f28 t-ac" style="width:80rpx;" value="{{seat}}" bindinput="seats"></input>
+      <image src="/icon/go.png" class="go"></image>
+    </view>
+  </view>
+
+  <!-- 订单备注 -->
+  <view class="b-ff b_r12 flex fl-align fl-jsb" style="padding:20rpx 0;">
+    <text class="f28" style="margin-left:20rpx;">订单备注</text>
+    <input class="f28" placeholder="要求,喜好" style="margin-right:20rpx;text-align:right;" bindinput="note"></input>
+  </view>
+
+  <view class="f-line b-ff flex fl-align fl-jsd">
+    <text class="f28">共计:<text style="color:#dea482;">￥{{total_price}}</text></text>
+    <view class="b-de c-ff f-28 t-ac" bindtap="upOrder">确定下单</view>
+  </view>
+
+</view>
