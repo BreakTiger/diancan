@@ -1,0 +1,10 @@
+<view class="container flex col fl-align">
+
+  <view class="list-item flex fl-align fl-jsb b-ff" wx:for="{{list}}" wx:key="index" data-item="{{item}}" bindtap="toRecommend">
+    <image src="{{item.file_name}}" class="b_r12"></image>
+    <view class="flex col">
+      <view class="f28">{{item.goods_name}}</view>
+    </view>
+  </view>
+
+</view>

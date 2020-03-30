@@ -1,5 +1,6 @@
 const request = require('../../utils/http.js')
 import modals from '../../utils/modal.js'
+let template = require('../../templates/tabline/tabline.js')
 const app = getApp()
 
 Page({
@@ -34,6 +35,9 @@ Page({
   },
 
   onLoad: function(options) {
+    // 底部导航
+    template.tabbar("tabBar", 0, this)
+
     let detail = app.globalData.item
     this.setData({
       detail: detail,
@@ -106,6 +110,9 @@ Page({
           that.getCar()
         } else {
           modals.showToast(res.data.msg, 'none')
+          that.setData({
+            menuList: []
+          })
         }
       } else {
         modals.showToast('系统繁忙，请稍后重试', 'none')

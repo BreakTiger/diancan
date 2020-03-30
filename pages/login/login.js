@@ -4,6 +4,15 @@ const app = getApp()
 
 Page({
 
+  data: {
+    shop: []
+  },
+  onLoad: function() {
+    this.setData({
+      shop: wx.getStorageSync('shop')
+    })
+  },
+
   // 登录-1
   toGetUserInfo: function(e) {
     let that = this

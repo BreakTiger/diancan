@@ -1,0 +1,12 @@
+<template name="tabline">
+  <view class="tabline b-ff flex fl-align fl-jsa">
+    <block wx:for="{{tabBar}}" wx:key="index">
+      <navigator open-type="redirect" url="{{item.pagePath}}">
+        <view class="tab-item flex col fl-align">
+          <image src="{{item.iconPath}}"></image>
+          <text class="f25">{{item.text}}</text>
+        </view>
+      </navigator>
+    </block>
+  </view>
+</template>

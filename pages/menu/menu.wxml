@@ -1,3 +1,5 @@
+<import src="../../templates/tabline/tabline.wxml" />
+
 <view class="container flex fl-align">
 
   <!-- 左侧导航 -->
@@ -8,7 +10,7 @@
         <text class="f28">搜索</text>
       </view>
       <view class="nav-tab flex fl-align fl-jse {{choice_nav==item.category_id?'lineleft b-ff':''}}" wx:for="{{navList}}" wx:key="nav" data-item="{{item}}" bindtap="switchNav">
-        <text class="f28">{{item.name}}</text>
+        <text class="f28 climp2 t-ac">{{item.name}}</text>
       </view>
     </scroll-view>
   </view>
@@ -45,11 +47,14 @@
           </view>
         </view>
       </block>
+      <block wx:if="{{menuList.length==0}}">
+        <view class="f32 t-ac">暂无数据</view>
+      </block>
     </scroll-view>
   </view>
 
   <!-- 底部导航 -->
-  
+  <template is="tabline" data="{{tabBar:bindData.tabBar}}" />
 
   <!-- 悬浮 购物车按钮 + 购物商品数量 + 计算栏 -->
   <block wx:if="{{carList.length!=0}}">
@@ -121,6 +126,5 @@
       </scroll-view>
     </view>
   </block>
-
 
 </view>

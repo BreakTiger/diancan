@@ -8,7 +8,9 @@
     "pages/menu/toOrder/toOrder",
     "pages/order/order",
     "pages/order/order-detail/order-detail",
-    "pages/mine/member/member"
+    "pages/mine/member/member",
+    "pages/obtain/obtain",
+    "pages/index/recommend/recommend"
   ],
   "window": {
     "backgroundTextStyle": "light",

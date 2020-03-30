@@ -5,11 +5,15 @@ const app = getApp()
 Page({
 
   data: {
+    shop: [],
     page: 1,
     list: []
   },
 
   onLoad: function(options) {
+    this.setData({
+      shop: wx.getStorageSync('shop')
+    })
     this.getList()
   },
 

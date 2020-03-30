@@ -1,14 +1,23 @@
 const request = require('../../utils/http.js')
 import modals from '../../utils/modal.js'
+let template = require('../../templates/tabline/tabline.js')
 const app = getApp()
 
 Page({
 
   data: {
+    id:null,
     users: {}
   },
 
   onLoad: function(options) {
+    console.log(options)
+    let id = options.id || ''
+    this.setData({
+      id:id
+    })
+    // 底部导航
+    template.tabbar("tabBar", 2, this)
     this.getUser()
   },
 

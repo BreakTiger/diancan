@@ -19,7 +19,7 @@
 
   <!-- 推荐 -->
   <block wx:if="{{r_list.length!=0}}">
-    <view class="flex fl-align fl-jsb">
+    <view class="flex fl-align fl-jsb" bindtap="toTui">
       <text class="f20">推荐（{{r_list.length}}）</text>
       <image src="/icon/go.png" class="go"></image>
     </view>

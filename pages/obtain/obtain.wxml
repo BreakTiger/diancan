@@ -1,0 +1,16 @@
+<import src="../../templates/tabline/tabline.wxml" />
+<view class="container flex col fl-align">
+
+  <scroll-view class="b-ff b_r12" scroll-y="true">
+
+    <view class="empty flex col fl-align">
+      <image src="/icon/empyt.png"></image>
+      <view class="c-ff f28 b-de t-ac" bindtap="toOrder">去点单</view>
+    </view>
+
+  </scroll-view>
+  <!-- 底部导航 -->
+  <template is="tabline" data="{{tabBar:bindData.tabBar}}"/>
+
+
+</view>

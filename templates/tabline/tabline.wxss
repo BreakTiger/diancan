@@ -1,0 +1,14 @@
+.tabline {
+  width: 100%;
+  height: 140rpx;
+  position: fixed;
+  bottom: 0rpx;
+  z-index: 200;
+  border-top: 1rpx solid #f5f5f5;
+}
+
+.tab-item>image {
+  width: 68rpx;
+  height: 68rpx;
+  margin-bottom: 10rpx;
+}

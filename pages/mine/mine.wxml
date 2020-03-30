@@ -1,3 +1,5 @@
+<import src="../../templates/tabline/tabline.wxml" />
+
 <view class="container flex col fl-align">
 
   <!-- 用户信息 -->
@@ -52,13 +54,17 @@
     <image src="/icon/go.png"></image>
   </view>
 
-  <!-- 我的预约 -->
+  <!-- 我的券包 -->
   <view class="line h80 flex fl-align fl-jsb" bindtap="toReserve">
     <text class="f28">我的券包</text>
     <image src="/icon/go.png"></image>
   </view>
 
   <!-- 关于我们 -->
+
+
+  <!-- 底部导航 -->
+  <template is="tabline" data="{{tabBar:bindData.tabBar}}" wx:if="{{id!=1}}" />
 
 
 </view>

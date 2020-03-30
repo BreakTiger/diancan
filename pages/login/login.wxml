@@ -1,8 +1,8 @@
 <view class="container flex col fl-align">
 
-  <image class="log b_r12" src=""></image>
+  <image class="log b_r12" src="{{shop.file_path}}"></image>
 
-  <button open-type="getUserInfo" class="login c-ff" bindgetuserinfo="toGetUserInfo" lang="zh_CN">授 权 登 录</button>
+  <button open-type="getUserInfo" class="login c-ff b-de" bindgetuserinfo="toGetUserInfo" lang="zh_CN">授 权 登 录</button>
 
   <text class="f28 c-66">登录即表明您同意我们的《服务协议》</text>
 
