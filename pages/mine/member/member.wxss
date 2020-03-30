@@ -1,1 +1,63 @@
-/* pages/mine/member/member.wxss */
+.container>view {
+  width: 710rpx;
+  margin: 20rpx 0;
+}
+
+.card-box {
+  height: 350rpx;
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
+  position: relative;
+}
+
+.card-box>image {
+  width: 100%;
+  height: 100%;
+}
+
+.card-box>view {
+  position: absolute;
+  width: 625rpx;
+}
+
+.title {
+  top: 30rpx;
+  color: #dea482;
+}
+
+.title-one {
+  top: 90rpx;
+  color: #dea482;
+}
+
+.title-two {
+  bottom: 75rpx;
+}
+
+.list-item {
+  padding: 10rpx 0;
+}
+
+.list-item>icon {
+  margin-right: 10rpx;
+}
+
+.un-btn {
+  width: 600rpx !important;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 50rpx;
+  margin-bottom: 20rpx;
+}
+
+.power-item {
+  margin: 0 35rpx;
+  margin-top: 22rpx;
+}
+
+.power-item>view {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}

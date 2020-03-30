@@ -4,7 +4,7 @@
       <navigator open-type="redirect" url="{{item.pagePath}}">
         <view class="tab-item flex col fl-align">
           <image src="{{item.iconPath}}"></image>
-          <text class="f25">{{item.text}}</text>
+          <text class="f25 {{item.current==index?'c-00':'c-66'}}" data-index="{{index}}" data-cu="{{item.current}}">{{item.text}}</text>
         </view>
       </navigator>
     </block>

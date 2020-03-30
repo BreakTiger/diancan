@@ -10,7 +10,9 @@
     "pages/order/order-detail/order-detail",
     "pages/mine/member/member",
     "pages/obtain/obtain",
-    "pages/index/recommend/recommend"
+    "pages/index/recommend/recommend",
+    "pages/mine/coupon/coupon",
+    "pages/mine/charge/charge"
   ],
   "window": {
     "backgroundTextStyle": "light",

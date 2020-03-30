@@ -16,16 +16,17 @@
 
 .nav-tab {
   width: 100%;
-  height: 80rpx;
+  height: 100rpx;
 }
 
 .nav-tab>text {
-  width: 90%;
+  width: 50%;
 }
 
 .search {
   width: 30rpx;
   height: 30rpx;
+  margin: 0 10rpx;
 }
 
 .lineleft {
@@ -35,7 +36,7 @@
 .lineleft::before {
   content: '';
   width: 10rpx;
-  height: 80rpx;
+  height: 100rpx;
   background: #ff6235;
   position: absolute;
   left: 0rpx;
@@ -120,7 +121,7 @@
   width: 750rpx;
   height: 450rpx;
   position: fixed;
-  bottom: 202rpx;
+  bottom: 230rpx;
   z-index: 200;
 }
 

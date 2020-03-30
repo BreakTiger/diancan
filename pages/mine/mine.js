@@ -6,7 +6,7 @@ const app = getApp()
 Page({
 
   data: {
-    id:null,
+    id: null,
     users: {}
   },
 
@@ -14,7 +14,7 @@ Page({
     console.log(options)
     let id = options.id || ''
     this.setData({
-      id:id
+      id: id
     })
     // 底部导航
     template.tabbar("tabBar", 2, this)
@@ -52,8 +52,6 @@ Page({
 
   // 绑定手机
   setPhone: function(e) {
-    console.log(e)
-    console.log(e.detail)
     let that = this
     let data = {
       token: wx.getStorageSync('token'),
@@ -82,6 +80,13 @@ Page({
     })
   },
 
+  // 会员
+  toMember: function() {
+    wx.navigateTo({
+      url: '/pages/mine/member/member',
+    })
+  },
+
   // 我的订单
   toOrder: function() {
     wx.navigateTo({
@@ -89,10 +94,18 @@ Page({
     })
   },
 
-  //我的预定
-  toReserve: function() {
-    // wx.navigateTo({
-    //   url: '/pages/reserve/reserve',
-    // })
-  }
+  // 我的券包
+  coupons: function() {
+    wx.navigateTo({
+      url: '/pages/mine/coupon/coupon',
+    })
+  },
+
+  // 充值
+  toCharge: function() {
+    wx.navigateTo({
+      url: '/pages/mine/charge/charge',
+    })
+  },
+
 })

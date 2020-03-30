@@ -23,7 +23,7 @@
   </view>
 
   <!-- 会员卡 -->
-  <view class="card-line flex col fl-align">
+  <view class="card-line flex col fl-align" bindtap="toMember">
     <view class="card flex fl-align fl-jsb">
       <text class="f28 c-ff" style="margin-left:20rpx;">开通会员</text>
       <view class="flex fl-align" style="margin-right:20rpx;">
@@ -35,17 +35,17 @@
 
   <!-- 余额 -->
   <view class="line flex col">
-    <view class="f32 c-00 f-wb">余额</view>
-    <view class="flex fl-align fl-jsb">
+    <view class="f32 c-00">账户余额</view>
+    <view class="flex fl-align fl-jsb" bindtap="toCharge">
       <text class="f40 c-00 f-wb">0.00</text>
-      <view class="c-btn f28 f-wb b_r20">充值</view>
+      <view class="c-btn f28 f-wb">充值</view>
     </view>
   </view>
 
   <!-- 我的积分 -->
   <view class="line h80 flex fl-align fl-jsb">
     <text class="f28">我的积分</text>
-    <text class="f28">0积分</text>
+    <text class="f28 c-66">0积分</text>
   </view>
 
   <!-- 我的订单 -->
@@ -55,7 +55,7 @@
   </view>
 
   <!-- 我的券包 -->
-  <view class="line h80 flex fl-align fl-jsb" bindtap="toReserve">
+  <view class="line h80 flex fl-align fl-jsb" bindtap="coupons">
     <text class="f28">我的券包</text>
     <image src="/icon/go.png"></image>
   </view>

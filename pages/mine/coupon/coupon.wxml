@@ -1,0 +1,8 @@
+<view class="container flex col fl-align">
+
+  <block>
+    <image src="/icon/empyt.png" class="empty"></image>
+    <text class="f25 c-66">暂无优惠券</text>
+  </block>
+
+</view>

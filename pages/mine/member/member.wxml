@@ -1,2 +1,54 @@
-<!--pages/mine/member/member.wxml-->
-<text>pages/mine/member/member.wxml</text>
+<view class="container flex col fl-align">
+
+  <view class="card-box flex col fl-align">
+    <image src="/icon/card.png"></image>
+    <view class="title f40 f-wb">VIP</view>
+    <view class="title-one f28">暂未开通会员</view>
+    <view class="title-two f25 c-ff">开通会员可享受所有vip特权</view>
+  </view>
+
+  <view class="f-wb f40" style="margin-left:30rpx;">开通会员</view>
+
+  <view class="conditions flex col">
+    <view class="list-item flex fl-align">
+      <icon size="20" color="#666" type="clear"></icon>
+      <text class="f28">在个人中心绑定手机号</text>
+    </view>
+    <view class="list-item flex fl-align">
+      <icon size="20" color="#666" type="clear"></icon>
+      <text class="f28">邀请直属好友数达到5人【当前1人】</text>
+    </view>
+    <view class="list-item flex fl-align">
+      <icon size="20" color="#666" type="clear"></icon>
+      <text class="f28">在本店历史消费订单总数达到5单</text>
+    </view>
+    <view class="list-item flex fl-align">
+      <icon size="20" color="#666" type="clear"></icon>
+      <text class="f28">在本店历史消费总金额达到200.00元</text>
+    </view>
+    <view class="list-item flex fl-align">
+      <icon size="20" color="#666" type="clear"></icon>
+      <text class="f28">在本店历史充值总金额达到100.00</text>
+    </view>
+  </view>
+
+  <view class="un-btn f28 c-66 b-f5 t-ac f-wb">未满足开通条件</view>
+
+  <view>
+    <text class="f40 f-wb" style="margin-right:20rpx;margin-left:30rpx;">会员特权</text>
+    <text class="f25 c-66">根据开通日期，每2季自动发放</text>
+  </view>
+
+  <view class="flex fl-w">
+
+    <view class="power-item flex col fl-align" wx:for="{{power}}" wx:key="index">
+      <view>
+        <image src="{{item.icon}}" class="wh100"></image>
+      </view>
+      <text class="f25">{{item.text}}</text>
+    </view>
+
+  </view>
+
+
+</view>

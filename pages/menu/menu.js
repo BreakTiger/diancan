@@ -370,9 +370,18 @@ Page({
 
   // 展示购物车内容 
   showCar: function() {
-    this.setData({
-      cars: true
-    })
+    let cars = this.data.cars
+    console.log(cars)
+    if (cars) {
+      this.setData({
+        cars: false
+      })
+    } else {
+      this.setData({
+        cars: true
+      })
+    }
+
   },
 
   // 关闭购物车内容

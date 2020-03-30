@@ -8,8 +8,31 @@ Page({
     shop: []
   },
   onLoad: function() {
-    this.setData({
-      shop: wx.getStorageSync('shop')
+    this.getShop()
+  },
+
+  // 当前商铺信息
+  getShop: function() {
+    let that = this
+    let url = app.globalData.api + '?s=wxapi/index/get_shop'
+    modals.loading()
+    request.sendRequest(url, 'post', {}, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      modals.loaded()
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          let shop = res.data.data
+          that.setData({
+            shop: shop
+          })
+          wx.setStorageSync('shop', shop)
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
     })
   },
 

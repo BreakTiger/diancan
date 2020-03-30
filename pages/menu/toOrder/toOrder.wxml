@@ -25,6 +25,12 @@
     </view>
   </view>
 
+  <!-- 支付方式 -->
+  <view class="b-ff b_r12 flex fl-align fl-jsb" style="padding:20rpx 0;">
+    <text class="f28" style="margin-left:20rpx;">桌号</text>
+    <text class="f28" style="margin-right:20rpx;">微信支付</text>
+  </view>
+
   <!-- 订单备注 -->
   <view class="b-ff b_r12 flex fl-align fl-jsb" style="padding:20rpx 0;">
     <text class="f28" style="margin-left:20rpx;">订单备注</text>

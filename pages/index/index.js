@@ -53,9 +53,11 @@ Page({
   getBanner: function() {
     let that = this
     let url = app.globalData.api + '?s=wxapi/index/get_baner'
+    modals.loading()
     request.sendRequest(url, 'post', {}, {
       'content-type': 'application/json'
     }).then(function(res) {
+      modals.loaded()
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.setData({
@@ -88,27 +90,6 @@ Page({
           that.setData({
             r_list: list
           })
-          that.getShop()
-        } else {
-          modals.showToast(res.data.msg, 'none')
-        }
-      } else {
-        modals.showToast('系统繁忙，请稍后重试', 'none')
-      }
-    })
-  },
-
-  // 当前商铺信息
-  getShop: function() {
-    let that = this
-    let url = app.globalData.api + '?s=wxapi/index/get_shop'
-    request.sendRequest(url, 'post', {}, {
-      'content-type': 'application/json'
-    }).then(function(res) {
-      if (res.statusCode == 200) {
-        if (res.data.code == 200) {
-          let shop = res.data.data
-          wx.setStorageSync('shop', shop)
         } else {
           modals.showToast(res.data.msg, 'none')
         }
@@ -154,7 +135,11 @@ Page({
   toTui: function() {
     let list = this.data.r_list
     wx.navigateTo({
-      url: '/pages/index/recommend/recommend?list='+JSON.stringify(list),
+      url: '/pages/index/recommend/recommend?list=' + JSON.stringify(list),
     })
   },
+
+  onShareAppMessage: function(options) {
+
+  }
 })
