@@ -58,15 +58,15 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/mine/mine",
-					"pathName": "pages/mine/mine",
+					"name": "pages/menu/menu",
+					"pathName": "pages/menu/menu",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/mine/charge/charge",
-					"pathName": "pages/mine/charge/charge",
+					"name": "pages/obtain/obtain",
+					"pathName": "pages/obtain/obtain",
 					"query": "",
 					"scene": null
 				}

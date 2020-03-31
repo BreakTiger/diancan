@@ -1,15 +1,40 @@
 @import "../../templates/tabline/tabline.wxss";
 
-.container {
-  height: 100% !important;
+.shop {
+  height: 120rpx;
+  padding: 0 20rpx;
 }
 
-.left-content {
+.loaction, .arrow {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.shop-info {
+  height: 965rpx;
+  padding: 0 20rpx;
+  z-index: 200;
+  position: fixed;
+  top: 120rpx;
+}
+
+.go {
+  width: 26rpx;
+  height: 26rpx;
+  margin-left: 15rpx;
+}
+
+.menu {
+  width: 100%;
+  height: 965rpx;
+}
+
+.left {
   width: 20%;
   height: 100%;
 }
 
-.right-content {
+.right {
   width: 80%;
   height: 100%;
 }
@@ -78,8 +103,8 @@
   border: 1rpx solid #666;
   position: fixed;
   left: 25rpx;
-  bottom: 170rpx;
-  z-index: 480;
+  bottom: 140rpx;
+  z-index: 120;
 }
 
 .shop-car>image {
@@ -95,16 +120,16 @@
   background: #dea482;
   position: fixed;
   left: 180rpx;
-  bottom: 225rpx;
-  z-index: 480;
+  bottom: 185rpx;
+  z-index: 125;
 }
 
 .price-line {
   width: 750rpx;
   height: 90rpx;
   position: fixed;
-  bottom: 140rpx;
-  z-index: 200;
+  bottom: 120rpx;
+  z-index: 100;
   border-top: 1rpx solid #666;
 }
 
@@ -115,14 +140,12 @@
   background: #dea482;
 }
 
-/* 导航 */
-
 .car-content {
   width: 750rpx;
   height: 450rpx;
   position: fixed;
-  bottom: 230rpx;
-  z-index: 200;
+  bottom: 210rpx;
+  z-index: 110;
 }
 
 .title-line {
@@ -162,7 +185,6 @@
   height: 1000rpx;
   position: fixed;
   bottom: 0rpx;
-  z-index: 500;
 }
 
 .sk-content>view:first-child {

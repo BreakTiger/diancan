@@ -1,10 +1,41 @@
 <import src="../../templates/tabline/tabline.wxml" />
 
-<view class="container flex fl-align">
+<view class="container">
+  <!-- 门店 -->
+  <view class="shop flex col fl-jse">
+    <text class="f32 c-00">易象门店</text>
+    <view class="flex fl-align fl-jsb">
+      <view class="flex fl-align">
+        <image src="/icon/location.png" class="loaction" style="margin-right: 15rpx;"></image>
+        <text class="f28 c-66">距离您35.3公里</text>
+      </view>
+      <view class="flex fl-align" bindtap="toShop">
+        <text class="f28 c-66" style="margin-left:20rpx;">门店信息</text>
+        <image src="/icon/top.png" class="arrow" wx:if="{{shop}}"></image>
+        <image src="/icon/down.png" class="arrow" wx:else></image>
+      </view>
+    </view>
+  </view>
+  <!-- 门店信息 -->
+  <view class="shop-info b-ff flex col" wx:if="{{shop}}">
+    <view class="f28 c-66" style="margin:20rpx 0;">公告：扫码点餐免排队，更优惠。扫码点餐免排队，更优惠。扫码点餐免排队，更优惠。扫码点餐免排队，更优惠。</view>
+    <text class="f28 f-wb">门店地址</text>
+    <view class="f28 c-66" style="margin:20rpx 0;">广东省广州市白云区人和镇人和大马路45好3楼</view>
+    <text class="f28 f-wb">联系电话</text>
+    <view class="flex fl-align" style="margin:20rpx 0;">
+      <text class="f28 c-66">13602466754</text>
+      <image src="/icon/go.png" class="go"></image>
+    </view>
+    <text class="f28 f-wb">营业时间</text>
+    <text class="f28 c-66" style="margin:20rpx 0;">24小时营业</text>
+    <text class="f28 c-66">14:00-14:59</text>
+    <text class="f28 c-66" style="margin:20rpx 0;">19:00-21:00</text>
+  </view>
 
-  <!-- 左侧导航 -->
-  <view class="left-content b-f5">
-    <scroll-view class="wh100" scroll-y="true">
+  <!-- 菜单容器 -->
+  <view class="menu flex fl-align">
+    <!-- 左侧 -->
+    <scroll-view class="left b-f5" scroll-y="true">
       <view class="nav-tab flex fl-align fl-jsa b-f5" bindtap="toSearch">
         <image src="/icon/search.png" class="search"></image>
         <text class="f28">搜索</text>
@@ -13,11 +44,8 @@
         <text class="f28 climp2 t-ac">{{item.name}}</text>
       </view>
     </scroll-view>
-  </view>
-
-  <!-- 右侧菜单 -->
-  <view class="right-content">
-    <scroll-view class="wh100" scroll-y="true">
+    <!-- 右侧 -->
+    <scroll-view class="right" scroll-y="true ">
       <block wx:for="{{menuList}}" wx:key="index">
         <view class="menu-list-item flex fl-align fl-jsb b-ff">
           <image class="b_r12" src="{{item.file_name}}"></image>
@@ -29,7 +57,6 @@
               <text class="f25 c-66 d-l">￥{{item.spec_money[0].line_price}}</text>
             </view>
             <view class="num flex fl-align fl-jsd">
-
               <!-- 多规格 -->
               <view class="f28 c-ff b-de b_r12" style="padding:6rpx;" wx:if="{{item.spec}}" catchtap="movesk" data-item="{{item}}" data-index="{{index}}">规格</view>
 
@@ -53,9 +80,6 @@
     </scroll-view>
   </view>
 
-  <!-- 底部导航 -->
-  <template is="tabline" data="{{tabBar:bindData.tabBar}}" />
-
   <!-- 悬浮 购物车按钮 + 购物商品数量 + 计算栏 -->
   <block wx:if="{{carList.length!=0}}">
     <view class="shop-car flex fl-align fl-jsa b-ff" catchtap="showCar">
@@ -70,33 +94,6 @@
       <view class="btn t-ac f32 c-ff" bindtap="toOrder">去结算</view>
     </view>
   </block>
-
-  <!-- 多规格弹窗 -->
-  <view class="cover flex col" wx:if="{{sk}}" style="z-index:500;">
-    <view class="sk-content b-ff flex col fl-align">
-      <!-- 商品信息 -->
-      <view class="flex fl-align">
-        <image src="/icon/close.png" class="close" bindtap="toClose"></image>
-        <image src="{{goods.file_name}}" class="goods-img b_r12"></image>
-        <view class="good-info flex col fl-jse">
-          <view class="f32 f-wb c-00 climp1">{{goods.goods_name}}</view>
-          <view class="f28 c-66 climp1">已选：{{choice_sk_name}}</view>
-          <view class="f25" style="color: #fe2438;">￥{{choice_sk_price}}</view>
-        </view>
-      </view>
-      <!-- 商品规格 -->
-      <scroll-view scroll-y="true">
-        <view class="sk-line flex col" wx:for="{{goods_spec}}" wx:key="id" wx:for-item='item'>
-          <text>{{item.name}}</text>
-          <view class="flex fl-w">
-            <view class="laber f25 t-ac b_r12 b-f5 {{it.id==it.active?'active':''}}" wx:for="{{item.item}}" wx:key="id" bindtap="select" wx:for-item='it' data-laber-index="{{index}}" data-all="{{goods_spec}}" data-item="{{it}}">{{it.name}}</view>
-          </view>
-        </view>
-      </scroll-view>
-      <!-- 确定按钮 -->
-      <view class="f32 f-wb t-ac c-ff b_r12" bindtap="finsh">选 好 了</view>
-    </view>
-  </view>
 
   <!-- 遮罩 + 购物车内容框 -->
   <block wx:if="{{cars}}">
@@ -127,4 +124,32 @@
     </view>
   </block>
 
+  <!-- 底部导航 -->
+  <template is="tabline" data="{{tabBar:bindData.tabBar}}" />
+
+  <view class="cover flex col" style="z-index:500;" wx:if="{{sk}}">
+    <view class="sk-content b-ff flex col fl-align">
+      <!-- 商品信息 -->
+      <view class="flex fl-align">
+        <image src="/icon/close.png" class="close" bindtap="toClose"></image>
+        <image src="{{goods.file_name}}" class="goods-img b_r12"></image>
+        <view class="good-info flex col fl-jse">
+          <view class="f32 f-wb c-00 climp1">{{goods.goods_name}}</view>
+          <view class="f28 c-66 climp1">已选：{{choice_sk_name}}</view>
+          <view class="f25" style="color: #fe2438;">￥{{choice_sk_price}}</view>
+        </view>
+      </view>
+      <!-- 商品规格 -->
+      <scroll-view scroll-y="true">
+        <view class="sk-line flex col" wx:for="{{goods_spec}}" wx:key="id" wx:for-item='item'>
+          <text>{{item.name}}</text>
+          <view class="flex fl-w">
+            <view class="laber f25 t-ac b_r12 b-f5 {{it.id==it.active?'active':''}}" wx:for="{{item.item}}" wx:key="id" bindtap="select" wx:for-item='it' data-laber-index="{{index}}" data-all="{{goods_spec}}" data-item="{{it}}">{{it.name}}</view>
+          </view>
+        </view>
+      </scroll-view>
+      <!-- 确定按钮 -->
+      <view class="f32 f-wb t-ac c-ff b_r12" bindtap="finsh">选 好 了</view>
+    </view>
+  </view>
 </view>

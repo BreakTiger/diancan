@@ -139,6 +139,11 @@ Page({
     })
   },
 
+  // 门店
+  toShop: function() {
+
+  },
+
   onShareAppMessage: function(options) {
 
   }

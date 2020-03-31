@@ -30,14 +30,13 @@ Page({
 
     cars: false, //购物车内容显示
 
-    total_price: '0.00' //总价
+    total_price: '0.00', //总价
 
+    shop: false
   },
 
   onLoad: function(options) {
-    // 底部导航
     template.tabbar("tabBar", 0, this)
-
     let detail = app.globalData.item
     this.setData({
       detail: detail,
@@ -46,6 +45,7 @@ Page({
   },
 
   onShow: function() {
+
     this.getKind() //分类导航
   },
 
@@ -564,6 +564,19 @@ Page({
     wx.navigateTo({
       url: '/pages/menu/search/search',
     })
+  },
+
+  toShop: function() {
+    let shop = this.data.shop
+    if (shop) {
+      this.setData({
+        shop: false
+      })
+    } else {
+      this.setData({
+        shop: true
+      })
+    }
   },
 
 })
