@@ -165,5 +165,12 @@ Page({
         }, 1000)
       }
     })
-  }
+  },
+
+  // 查看记录
+  toLog: function() {
+    wx.navigateTo({
+      url: '/pages/mine/charge-log/charge-log',
+    })
+  },
 })

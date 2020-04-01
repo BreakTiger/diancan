@@ -14,7 +14,8 @@
     "pages/mine/coupon/coupon",
     "pages/mine/charge/charge",
     "pages/index/shop/shop",
-    "pages/index/location/location"
+    "pages/index/location/location",
+    "pages/mine/charge-log/charge-log"
   ],
   "window": {
     "backgroundTextStyle": "light",

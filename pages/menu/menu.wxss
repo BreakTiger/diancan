@@ -1,5 +1,9 @@
 @import "../../templates/tabline/tabline.wxss";
 
+.container {
+  height: 100% !important;
+}
+
 .shop {
   height: 120rpx;
   padding: 0 20rpx;
@@ -11,7 +15,7 @@
 }
 
 .shop-info {
-  height: 965rpx;
+  height: calc(100% - 120rpx);
   padding: 0 20rpx;
   z-index: 200;
   position: fixed;
@@ -26,7 +30,7 @@
 
 .menu {
   width: 100%;
-  height: 965rpx;
+  height: calc(100% - 120rpx);
 }
 
 .left {

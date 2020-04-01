@@ -24,7 +24,7 @@
 
 .list-item {
   width: 155rpx;
-  margin-left: 19rpx;
+  margin-left: 18rpx;
 }
 
 .list-item>image {

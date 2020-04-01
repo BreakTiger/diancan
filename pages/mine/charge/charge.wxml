@@ -19,7 +19,7 @@
     </view>
   </view>
   <view class="payBtn c-ff t-ac f28 b-de" bindtap="toPay">立即支付</view>
-  <view class="f28 c-66 t-ac">查看充值记录</view>
+  <view class="f28 c-66 t-ac" bindtap="toLog">查看充值记录</view>
   <view class="flex col">
     <text class="f32">充值说明</text>
     <text class="f28 c-66" style="margin-top:30rpx;">1.仅支持微信支付充值</text>

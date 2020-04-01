@@ -103,7 +103,6 @@ Page({
   toNav: function(e) {
     let item = e.currentTarget.dataset.item
     let path = item.path + '?id='
-    console.log(path)
     if (item.text == '自助下单') {
       app.globalData.item = {}
     }

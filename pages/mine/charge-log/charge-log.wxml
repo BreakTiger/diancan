@@ -1,0 +1,9 @@
+<view class="container flex col fl-align">
+  <view class="list-item flex fl-align fl-jsb" wx:for="{{list}}" wx:key="index">
+    <view class="flex col">
+      <text class="f28">余额：{{item.balance}}</text>
+      <text class="f25" style="margin-top:20rpx;">{{item.ctime}}</text>
+    </view>
+    <text class="f32">{{item.value}}</text>
+  </view>
+</view>

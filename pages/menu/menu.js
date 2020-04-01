@@ -45,7 +45,6 @@ Page({
   },
 
   onShow: function() {
-
     this.getKind() //分类导航
   },
 
@@ -53,9 +52,11 @@ Page({
   getKind: function() {
     let that = this
     let url = app.globalData.api + '?s=wxapi/Classify/get_class'
+    modals.loading()
     request.sendRequest(url, 'post', {}, {
       'content-type': 'application/json'
     }).then(function(res) {
+      modals.loaded()
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           let list = res.data.data
@@ -92,11 +93,12 @@ Page({
       category_id: that.data.choice_nav,
       goods_id: that.data.tid
     }
-    // console.log('参数：', data)
+    modals.loading()
     let url = app.globalData.api + '?s=wxapi/Classify/get_goods'
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
+      modals.loaded()
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           let list = res.data.data
@@ -127,10 +129,11 @@ Page({
       token: wx.getStorageSync('token')
     }
     let url = app.globalData.api + '?s=wxapi/Cart/index'
+    modals.loading()
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
-      // console.log(res)
+      modals.loaded()
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.setData({
@@ -350,9 +353,11 @@ Page({
   joinCar: function(param) {
     let that = this
     let url = app.globalData.api + '?s=wxapi/Cart/add';
+    modals.loading()
     request.sendRequest(url, 'post', param, {
       'content-type': 'application/json'
     }).then(function(res) {
+      modals.loaded()
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.setData({
@@ -577,6 +582,5 @@ Page({
         shop: true
       })
     }
-  },
-
+  }
 })
