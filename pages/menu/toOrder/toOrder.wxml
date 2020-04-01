@@ -1,5 +1,35 @@
 <view class="container flex col fl-align">
 
+  <!-- 切换 -->
+  <view class="switch flex col b_r12">
+
+    <view class="switch-line flex fl-jsb">
+      <view class="t-ac f28 {{switchs==0?'left b-ff ':'b-f5 l-box'}}" bindtap="switchs">配送</view>
+      <view class="t-ac f28 {{switchs==1?'right b-ff':'b-f5 r-box'}}" bindtap="switchs">自取</view>
+    </view>
+    <!-- 门店 -->
+    <view class="shop flex fl-align fl-jsb b-ff">
+      <view class="flex col">
+        <text class="f28 f-wb">易象门店</text>
+        <view class="f28 c-66" style="margin-top:10rpx;">您距离当前门店35.5公里</view>
+      </view>
+      <image src="/icon/location.png" class="location"></image>
+    </view>
+    <!-- 地址 -->
+    <view class="address b-ff" wx:if="{{switchs==0}}">
+      <text class="f28">配送地址</text>
+      <view class="f25 climp2" style="margin-top:20rpx;">请填写配送地址</view>
+    </view>
+    <view class="phone b-ff flex fl-align fl-jsb" wx:if="{{switchs==1}}">
+      <text class="f28">预留电话</text>
+      <text class="f28">XXXXXXXXXXX</text>
+    </view>
+    <view class="times b-ff flex fl-align fl-jsb">
+      <text class="f28">预约时间</text>
+      <text class="f28">今天</text>
+    </view>
+  </view>
+
   <!-- 商品 -->
   <view class="goods b-ff b_r12 flex col fl-align">
     <view class="f28" style="padding:20rpx 0;border-bottom:1rpx solid #f5f5f5;">共{{carList.length}}份商品</view>
@@ -27,8 +57,10 @@
 
   <!-- 支付方式 -->
   <view class="b-ff b_r12 flex fl-align fl-jsb" style="padding:20rpx 0;">
-    <text class="f28" style="margin-left:20rpx;">桌号</text>
-    <text class="f28" style="margin-right:20rpx;">微信支付</text>
+    <text class="f28" style="margin-left:20rpx;">支付方式</text>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" style="margin-right:20rpx;">
+      <text class="f28">{{array[index]}}</text>
+    </picker>
   </view>
 
   <!-- 订单备注 -->
@@ -36,6 +68,8 @@
     <text class="f28" style="margin-left:20rpx;">订单备注</text>
     <input class="f28" placeholder="要求,喜好" style="margin-right:20rpx;text-align:right;" bindinput="note"></input>
   </view>
+
+  <view style="width:100%;height:200rpx;"></view>
 
   <view class="f-line b-ff flex fl-align fl-jsd">
     <text class="f28">共计:<text style="color:#dea482;">￥{{total_price}}</text></text>

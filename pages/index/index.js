@@ -141,7 +141,21 @@ Page({
 
   // 门店
   toShop: function() {
+    wx.navigateTo({
+      url: '/pages/index/shop/shop',
+    })
+  },
 
+  toMenu: function() {
+    wx.navigateTo({
+      url: '/pages/menu/menu',
+    })
+  },
+
+  toLocation: function() {
+    wx.navigateTo({
+      url: '/pages/index/location/location',
+    })
   },
 
   onShareAppMessage: function(options) {

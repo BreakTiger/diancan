@@ -1,0 +1,3 @@
+<view class="wh100">
+  <map id="myMap" class="wh100" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" covers="{{covers}}" show-location></map>
+</view>

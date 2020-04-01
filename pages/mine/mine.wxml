@@ -37,7 +37,7 @@
   <view class="line flex col">
     <view class="f32 c-00">账户余额</view>
     <view class="flex fl-align fl-jsb" bindtap="toCharge">
-      <text class="f40 c-00 f-wb">0.00</text>
+      <text class="f40 c-00 f-wb">{{users.balance}}</text>
       <view class="c-btn f28 f-wb">充值</view>
     </view>
   </view>

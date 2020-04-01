@@ -1,3 +1,29 @@
 <view class="container flex col fl-align">
-  <view></view>
+  <view class="f40 f-wb" style="margin:20rpx 0;">账户充值</view>
+  <view class="charge-content flex fl-w">
+    <view class="charge b_r12 flex col fl-align fl-jse {{item.choice==index?'choices':''}}" wx:for="{{detail.meal}}" wx:key="index" bindtap="toChoice" data-index="{{index}}">
+      <image src="/icon/choice.png" class="choice" wx:if="{{item.choice==index}}"></image>
+
+      <!-- 固定 -->
+      <block wx:if="{{detail.type==0}}">
+        <text class="f32 f-wb {{item.choice==index?'c-de':''}}">{{item.name}}元</text>
+        <text class="f28 {{item.choice==index?'c-de':''}}">赠送{{item.value}}元</text>
+      </block>
+
+      <!-- 百分比 -->
+      <block wx:if="{{detail.type==1}}">
+        <text class="f32 f-wb {{item.choice==index?'c-de':''}}">{{item.name}}元</text>
+        <text class="f28 {{item.choice==index?'c-de':''}}">赠送{{item.value*detail.percent/100}}元</text>
+      </block>
+
+    </view>
+  </view>
+  <view class="payBtn c-ff t-ac f28 b-de" bindtap="toPay">立即支付</view>
+  <view class="f28 c-66 t-ac">查看充值记录</view>
+  <view class="flex col">
+    <text class="f32">充值说明</text>
+    <text class="f28 c-66" style="margin-top:30rpx;">1.仅支持微信支付充值</text>
+    <text class="f28 c-66">2.当您的充值出现问题，或者未到账时，请联系管理员</text>
+    <text class="f28 c-66">3.余额仅限本店使用，暂不支持体现</text>
+  </view>
 </view>

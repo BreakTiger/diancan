@@ -12,7 +12,9 @@
     "pages/obtain/obtain",
     "pages/index/recommend/recommend",
     "pages/mine/coupon/coupon",
-    "pages/mine/charge/charge"
+    "pages/mine/charge/charge",
+    "pages/index/shop/shop",
+    "pages/index/location/location"
   ],
   "window": {
     "backgroundTextStyle": "light",

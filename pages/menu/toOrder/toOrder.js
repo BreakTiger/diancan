@@ -6,12 +6,16 @@ Page({
 
 
   data: {
+    switchs: 0,
     carList: [],
     seat: null,
     note: '',
-    total_price: '0.00'
+    total_price: '0.00',
+    //支付方式
+    array: ['微信支付', '余额支付'],
+    index: 0,
+    choice: '微信支付'
   },
-
 
   onLoad: function(options) {
     let carList = JSON.parse(options.arr)
@@ -34,6 +38,20 @@ Page({
     })
   },
 
+  // 切换
+  switchs: function() {
+    let switchs = this.data.switchs
+    if (switchs == 0) {
+      this.setData({
+        switchs: 1
+      })
+    } else {
+      this.setData({
+        switchs: 0
+      })
+    }
+  },
+
   // 输入备注
   note: function(e) {
     let note = e.detail.value
@@ -50,11 +68,20 @@ Page({
     })
   },
 
+  // 修改支付方式
+  bindPickerChange: function(e) {
+    let index = e.detail.value
+    this.setData({
+      index: index,
+      choice: this.data.array[index]
+    })
+  },
+
+
   // 确定下单
   upOrder: function() {
     let that = this
     let car = that.data.carList
-    // console.log(car)
     let arr = []
     car.forEach(function(item) {
       let param = {
@@ -64,7 +91,6 @@ Page({
       }
       arr.push(param)
     })
-    // console.log(arr)
     let data = {
       token: wx.getStorageSync('token'),
       goods: arr,
@@ -80,7 +106,14 @@ Page({
       console.log(res)
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
-          that.toPay(res.data.data.order_id)
+          let index = that.data.index
+          if (index == 0) {
+            console.log('微信')
+            that.toWxPay(res.data.data.order_id)
+          } else {
+            console.log('余额')
+            that.usPay(res.data.data.order_id)
+          }
         } else if (res.data.code == 10000) {
           modals.showToast(res.data.msg, 'none')
           wx.navigateTo({
@@ -95,8 +128,8 @@ Page({
     })
   },
 
-  // 支付
-  toPay: function(e) {
+  // 微信支付
+  toWxPay: function(e) {
     let that = this
     let data = {
       order_id: e,
@@ -142,6 +175,39 @@ Page({
             url: '/pages/order/order',
           })
         }, 2000)
+      }
+    })
+  },
+
+  // 余额支付
+  usPay: function(e) {
+    let that = this
+    let data = {
+      order_id: e,
+      token: wx.getStorageSync('token')
+    }
+    let url = app.globalData.api + '?s=wxapi/Pay/do_buy_balance'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          modals.showToast('支付成功', 'success')
+          setTimeout(function() {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1000)
+        } else {
+          modals.showToast(res.data.msg, 'none')
+          // setTimeout(function () {
+          //   wx.redirectTo({
+          //     url: '/pages/order/order',
+          //   })
+          // }, 2000)
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
       }
     })
   }

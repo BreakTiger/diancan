@@ -38,6 +38,5 @@ App({
   globalData: {
     api: 'https://canyin.dt5555.cn/index.php',
     item: {},
-    
   }
 })

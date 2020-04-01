@@ -42,7 +42,7 @@
       <text class="f20">门店(4)</text>
       <image src="/icon/go.png" class="go"></image>
     </view>
-    <view class="shop-line flex fl-align" wx:for="{{3}}" wx:key="index">
+    <view class="shop-line flex fl-align" wx:for="{{3}}" wx:key="index" bindtap="toLocation">
       <view class="flex col">
         <text>易像门店</text>
         <view class="f28 w100 climp2 c-66" style="padding:20rpx 0;">广东省广州市白云区人和镇人和大马路45号</view>
@@ -51,7 +51,7 @@
           <text class="f28 c-66">35.5公里</text>
         </view>
       </view>
-      <text class="f28 c-66 t-ac">去下单</text>
+      <text class="f28 c-66 t-ac" catchtap="toMenu">去下单</text>
     </view>
   </block>
 

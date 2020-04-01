@@ -1,0 +1,29 @@
+<view class="container flex col fl-align">
+
+  <view class="flex fl-align fl-jse b-ff">
+    <view class="search flex fl-align b-f5 b_r12">
+      <icon type="search" size="20"></icon>
+      <input placeholder="请输入门店名称" confirm-type='search' type="text" bindconfirm="toSearch"></input>
+    </view>
+  </view>
+
+
+
+  <!-- 地图 -->
+  <view class="location">
+    <map id="myMap" class="wh100" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" covers="{{covers}}" show-location></map>
+  </view>
+
+  <view class="shop-item b-ff b_r12 flex fl-align fl-jsb">
+    <view class="left">
+      <view>
+        <text style="margin-right:10rpx;" class="f28 f-wb">易象门店</text>
+        <text class="f25 c-66">35.3公里</text>
+      </view>
+      <view class="f25 c-66" style="padding:10rpx 0;">广东省广州市白云区白云大道北永平街XXX楼XXXX号</view>
+    </view>
+    <view class="right t-ac f28">去下单</view>
+  </view>
+
+
+</view>

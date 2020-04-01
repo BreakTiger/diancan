@@ -1,0 +1,36 @@
+.container>view {
+  width: 90%;
+}
+
+.charge {
+  width: 300rpx;
+  height: 200rpx;
+  border: 1rpx solid #666;
+  margin: 0 17rpx;
+  margin-bottom: 30rpx;
+  position: relative;
+}
+
+.choice {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 0rpx;
+  right: 0rpx;
+}
+
+.payBtn {
+  width: 80%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 35rpx;
+  margin: 30rpx 0;
+}
+
+.choices {
+  border: 1rpx solid #dea482;
+}
+
+.c-de {
+  color: #dea482;
+}
