@@ -28,35 +28,6 @@ Page({
   },
 
 
-  onLoad: function(options) {
-    this.getCar()
-  },
-
-  //购物车
-  getCar: function() {
-    let that = this
-    let data = {
-      token: wx.getStorageSync('token')
-    }
-    let url = app.globalData.api + '?s=wxapi/Cart/index'
-    request.sendRequest(url, 'post', data, {
-      'content-type': 'application/json'
-    }).then(function(res) {
-      // console.log(res)
-      if (res.statusCode == 200) {
-        if (res.data.code == 200) {
-          that.setData({
-            carList: res.data.data
-          })
-        } else {
-          modals.showToast(res.data.msg, 'none')
-        }
-      } else {
-        modals.showToast('系统繁忙，请稍后重试', 'none')
-      }
-    })
-  },
-
   // 搜索词
   word: function(e) {
     this.setData({
@@ -65,12 +36,12 @@ Page({
   },
 
   // 搜索
-  search: function() {
+  search: function(e) {
     let that = this
     let data = {
       goods_name: that.data.word,
       page: that.data.page,
-      length: 10
+      length: 20
     }
     let url = app.globalData.api + '?s=wxapi/Classify/search'
     request.sendRequest(url, 'post', data, {
@@ -87,6 +58,33 @@ Page({
             searchList: list,
             searchs: true
           })
+          that.getCar()
+          // that.contrast()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  },
+
+  //购物车数据
+  getCar: function() {
+    let that = this
+    let data = {
+      token: wx.getStorageSync('token')
+    }
+    let url = app.globalData.api + '?s=wxapi/Cart/index'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      // console.log(res)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.setData({
+            carList: res.data.data
+          })
           that.contrast()
         } else {
           modals.showToast(res.data.msg, 'none')
@@ -100,21 +98,35 @@ Page({
   // 单规格 同步购物车和列表中的数据
   contrast: function() {
     let mlist = this.data.searchList
+    console.log(mlist)
     let clist = this.data.carList
-    mlist.forEach(function(one, index) {
-      if (one.spec_type == 10) {
-        clist.forEach(function(two, index) {
-          if (one.goods_id == two.goods_id) {
-            one.num = two.total_num
-          }
-        })
-      }
-    })
-    this.setData({
-      searchList: mlist
-    })
+    console.log(clist)
+    if (clist.length != 0) {
+      mlist.forEach(function(one, index) {
+        if (one.spec_type == 10) {
+          clist.forEach(function(two, index) {
+            if (one.goods_id == two.goods_id) {
+              one.num = two.total_num
+            }
+          })
+        }
+      })
+      this.setData({
+        searchList: mlist
+      })
+    } else {
+      mlist.forEach(function(item) {
+        item.num = 0
+      })
+      this.setData({
+        searchList: mlist
+      })
+    }
   },
 
+  // 单，多，加入购物车
+
+  //单
   // 单规格
   singlesk: function(e) {
     let indexs = e.currentTarget.dataset.index
@@ -292,13 +304,93 @@ Page({
     })
   },
 
+  // 单
+  // 增加
+  toAdd: function(e) {
+    let that = this
+    let items = e.currentTarget.dataset.item
+    let clist = that.data.carList
+    clist.forEach(function(item, index) {
+      if (item.goods_id == items.goods_id) {
+        let data = {
+          token: wx.getStorageSync('token'),
+          id: index,
+          total_num: parseInt(item.total_num) + 1
+        }
+        console.log(data)
+        that.editor(data)
+      }
+    })
+  },
 
-  onPullDownRefresh: function() {
+  // 减少
+  toMin: function(e) {
+    let that = this
+    let items = e.currentTarget.dataset.item
+    let clist = that.data.carList
+    clist.forEach(function(item, index) {
+      if (item.goods_id == items.goods_id) {
+        if (item.total_num > 1) {
+          let data = {
+            token: wx.getStorageSync('token'),
+            id: index,
+            total_num: parseInt(item.total_num) - 1
+          }
+          console.log(data)
+          that.editor(data)
+        } else {
+          let data = {
+            token: wx.getStorageSync('token'),
+            id: index
+          }
+          console.log(data)
+          that.delLog(data)
+        }
+      }
+    })
+  },
 
+  // 编辑
+  editor: function(data) {
+    let that = this
+    let url = app.globalData.api + '?s=wxapi/Cart/eidt'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.setData({
+            page: 1
+          })
+          that.getCar()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  },
+
+  // 从购物车中删除指定商品
+  delLog: function(data) {
+    let that = this
+    let url = app.globalData.api + '?s=wxapi/Cart/delete'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      console.log(res)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          that.getCar()
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
   },
 
 
-  onReachBottom: function() {
-
-  }
 })

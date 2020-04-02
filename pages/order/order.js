@@ -52,10 +52,31 @@ Page({
   // 继续支付
   toPay: function(e) {
     let that = this
+    wx.showActionSheet({
+      itemList: ['微信支付', '余额支付'],
+      itemColor: '#666',
+      success: function(res) {
+        let index = res.tapIndex
+        console.log(index)
+        if (index == 0) {
+          console.log('微信')
+          that.wxPay(e)
+        } else {
+          console.log('余额')
+          that.usPay(e)
+        }
+      }
+    })
+  },
+
+  // 微信支付
+  wxPay: function(e) {
+    let that = this
     let data = {
       order_id: e.currentTarget.dataset.item.order_id,
       token: wx.getStorageSync('token')
     }
+    console.log(data)
     let url = app.globalData.api + '?s=wxapi/Pay/do_pay'
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
@@ -100,6 +121,34 @@ Page({
     })
   },
 
+  // 余额支付
+  usPay: function(e) {
+    let that = this
+    let data = {
+      order_id: e.currentTarget.dataset.item.order_id,
+      token: wx.getStorageSync('token')
+    }
+    console.log(data)
+    let url = app.globalData.api + '?s=wxapi/Pay/do_buy_balance'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      // console.log(res.data.code)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          modals.showToast('支付成功', 'success')
+          setTimeout(function() {
+            that.getList()
+          }, 1000)
+        } else {
+          modals.showToast(res.data.msg, 'none')
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  },
+
   // 再买一次
   buyAgagin: function(e) {
     let that = this
@@ -138,6 +187,58 @@ Page({
       url: '/pages/order/order-detail/order-detail?item=' + JSON.stringify(item),
     })
   },
+
+  onPullDownRefresh: function() {
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 1000
+    })
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+    }, 1000);
+    this.setData({
+      page: 1
+    })
+    this.getList()
+  },
+
+
+  onReachBottom: function() {
+    let that = this
+    let old = that.data.list
+    let page = that.data.page + 1
+    let data = {
+      token: wx.getStorageSync('token'),
+      page: page,
+      length: 10
+    }
+    let url = app.globalData.api + '?s=wxapi/order/index'
+    request.sendRequest(url, 'post', data, {
+      'content-type': 'application/json'
+    }).then(function(res) {
+      console.log(res)
+      if (res.statusCode == 200) {
+        if (res.data.code == 200) {
+          let list = res.data.data.data
+          if (list.length > 0) {
+            that.setData({
+              page: page,
+              list: old.concat(list)
+            })
+          } else {
+            modals.showToast('我也是有底线的', 'none')
+          }
+        } else {
+          modals.showToast(res.data.msg, 'none');
+        }
+      } else {
+        modals.showToast('系统繁忙，请稍后重试', 'none')
+      }
+    })
+  }
+
+
 
 
 

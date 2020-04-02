@@ -6,4 +6,8 @@
     </view>
     <text class="f32">{{item.value}}</text>
   </view>
+  <block wx:if="{{list.length==0}}">
+    <image src="/icon/empyt.png" class="empyt"></image>
+    <text class="f28 c-66">暂无数据</text>
+  </block>
 </view>

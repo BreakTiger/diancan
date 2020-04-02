@@ -33,6 +33,7 @@ Page({
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
+      console.log(res.data)
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           that.setData({
@@ -54,19 +55,24 @@ Page({
 
   // 绑定手机
   setPhone: function(e) {
+    console.log(e.detail)
     let that = this
     let data = {
       token: wx.getStorageSync('token'),
+      // iv: encodeURI(e.detail.iv),
       iv: e.detail.iv,
       encryptedData: e.detail.encryptedData
     }
+    console.log(data)
     let url = app.globalData.api + '?s=wxapi/Person/bind_phone'
     request.sendRequest(url, 'post', data, {
       'content-type': 'application/json'
     }).then(function(res) {
+      console.log(res)
       if (res.statusCode == 200) {
         if (res.data.code == 200) {
           modals.showToast(res.data.msg, 'none')
+          console.log(111)
           that.getUser()
         } else if (res.data.code == 10000) {
           modals.showToast(res.data.msg, 'none')

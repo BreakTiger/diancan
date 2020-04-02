@@ -38,14 +38,25 @@ Page({
   },
 
   onLoad: function(options) {
-    // 获取扫码参数 - 座位
-    let scene = decodeURIComponent(options.scene) //参数二维码传递过来的参数
-    console.log(scene)
-    // let query = options.query.dentistId // 参数二维码传递过来的场景参数
-    // console.log(query)
-    //设置
+    console.log('options:', options)
+    // 设置座位
+    //普通二维码
+    if (options.q) {
+      console.log('扫描普通二维码')
+      let qrUrl = decodeURIComponent(options.q)
+      console.log('链接：', qrUrl)
+    }
+    // 小程序码
+    if (options.data) {
+      console.log('扫码小程序码')
+      let data = options.data || []
+      console.log(options.data)
+    }
+
+    // //设置
     let seat = 1
     wx.setStorageSync('seat', seat)
+
     this.getBanner()
   },
 

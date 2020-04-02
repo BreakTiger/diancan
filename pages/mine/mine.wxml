@@ -10,11 +10,11 @@
         <text class="f28 c-00 f-wb">{{users.nickName}}</text>
         <view class="n-level b-f5 b_r20 f25">普通用户</view>
       </view>
-      <view class="flex fl-align" wx:if="{{users.phone}}">
+      <!-- <view class="flex fl-align" wx:if="{{users.phone}}">
         <image src="/icon/phone.png" class="p_icon"></image>
         <text class="f25 c-66">已绑定</text>
-      </view>
-      <view class="flex fl-align" style="position: relative;" wx:else>
+      </view> -->
+      <view class="flex fl-align" style="position: relative;" >
         <image src="/icon/phone.png" class="p_icon"></image>
         <text class="f25 c-66">绑定手机</text>
         <button class="p-btn" plain="true" open-type="getPhoneNumber" bindgetphonenumber="setPhone"></button>

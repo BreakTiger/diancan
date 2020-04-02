@@ -43,6 +43,7 @@
       <view class="nav-tab flex fl-align fl-jse {{choice_nav==item.category_id?'lineleft b-ff':''}}" wx:for="{{navList}}" wx:key="nav" data-item="{{item}}" bindtap="switchNav">
         <text class="f28 climp2 t-ac">{{item.name}}</text>
       </view>
+      <view class="nav-tab" wx:for="{{4}}" wx:key="index"></view>
     </scroll-view>
     <!-- 右侧 -->
     <scroll-view class="right" scroll-y="true ">
@@ -77,6 +78,7 @@
       <block wx:if="{{menuList.length==0}}">
         <view class="f32 t-ac">暂无数据</view>
       </block>
+      <view style="width:100%;height:300rpx;"></view>
     </scroll-view>
   </view>
 

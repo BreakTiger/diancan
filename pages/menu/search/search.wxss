@@ -11,7 +11,7 @@ page {
 }
 
 .search-line>input {
-  width: 84%;
+  width: 85%;
   height: 60rpx;
   line-height: 60rpx;
 }

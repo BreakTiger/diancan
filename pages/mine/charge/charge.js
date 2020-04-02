@@ -52,6 +52,8 @@ Page({
     list.forEach(function(item, index) {
       if (index == indexs) {
         item.choice = indexs
+      } else {
+        item.choice = null
       }
     })
     this.setData({

@@ -35,7 +35,7 @@ function tabbarmain(bindName = "tabdata", id, target) {
   that.setData({
     bindData
   });
-  console.log(bindData)
+  // console.log(bindData)
 }
 
 module.exports = {

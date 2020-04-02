@@ -200,11 +200,6 @@ Page({
           }, 1000)
         } else {
           modals.showToast(res.data.msg, 'none')
-          // setTimeout(function () {
-          //   wx.redirectTo({
-          //     url: '/pages/order/order',
-          //   })
-          // }, 2000)
         }
       } else {
         modals.showToast('系统繁忙，请稍后重试', 'none')

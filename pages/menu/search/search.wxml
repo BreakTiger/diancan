@@ -30,9 +30,9 @@
           <block wx:else>
             <image src="/icon/add.png" class="b_rh" wx:if="{{item.num==0}}" bindtap="singlesk" data-index="{{index}}"></image>
             <block style="margin-right:20rpx;" wx:else>
-              <image src="/icon/min.png" class="b_rh"></image>
+              <image src="/icon/min.png" class="b_rh" catchtap="toMin" data-item="{{item}}"></image>
               <input class="f25 t-ac" value="{{item.num}}"></input>
-              <image src="/icon/add.png" class="b_rh"></image>
+              <image src="/icon/add.png" class="b_rh" catchtap="toAdd" data-item="{{item}}"></image>
             </block>
           </block>
 
